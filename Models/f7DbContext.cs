@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace f7.Models{
-    public class f7DbContext: IdentityDbContext<f7AppUser>{
+namespace f7.Models
+{
+    public class f7DbContext : IdentityDbContext<f7AppUser>
+    {
         public f7DbContext(DbContextOptions<f7DbContext> options) : base(options)
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -28,8 +30,14 @@ namespace f7.Models{
             builder.Entity<Warehouse>()
                 .Property(w => w.WarehouseId)
                 .ValueGeneratedOnAdd();
+
+            builder.Entity<f7AppUser>(entity =>
+            {
+                entity
+                    .HasIndex(user => user.UserName, "Unique_UserName_Constraint")
+                    .IsUnique();
+            });
         }
-        // public DbSet<Recipe> recipes { get; set; }
 
         public DbSet<Customer> customers { get; set; }
         public DbSet<Order> orders { get; set; }

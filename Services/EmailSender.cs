@@ -20,7 +20,7 @@ namespace f7.Services
         }
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            MailMessage message = new MailMessage(_senderName, email, subject, htmlMessage);
+            MailMessage message = new MailMessage(_senderEmail, email, subject, htmlMessage);
             message.BodyEncoding = System.Text.Encoding.UTF8;
             message.IsBodyHtml = true;
             message.Sender = new MailAddress(_senderEmail);

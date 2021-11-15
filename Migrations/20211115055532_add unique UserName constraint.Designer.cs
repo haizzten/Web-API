@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using f7.Models;
 
 namespace f7.Migrations
 {
     [DbContext(typeof(f7DbContext))]
-    partial class f7DbContextModelSnapshot : ModelSnapshot
+    [Migration("20211115055532_add unique UserName constraint")]
+    partial class adduniqueUserNameconstraint
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

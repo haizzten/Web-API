@@ -16,6 +16,7 @@ using f7.Models;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Text;
 using System.Net.Http;
+using System.Net;
 
 namespace f7.Areas.Identity.Controllers
 {
@@ -47,21 +48,33 @@ namespace f7.Areas.Identity.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
+        public async Task<IActionResult> test()
+        {
+            this.Response.ContentType = "application/json";
+            this.Response.StatusCode = 200;
+
+            f7AppUser appUser = await _userManager.GetUserAsync(this.User);
+
+            return Json(new
+            {
+                user = new f7AppUser
+                {
+                    Email = "haizz@ten.henzztai"
+                }
+            });
+
+        }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync([FromBody] InputModel inp)
+        public async Task<IActionResult> RegisterAsync(InputModel inp)
         {
-            return Json(new { didServerListened = "Yup!" });
-
             if (ModelState.IsValid)
             {
                 var newUser = new f7AppUser()
@@ -76,30 +89,33 @@ namespace f7.Areas.Identity.Controllers
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { area = "Identity", userId = newUser.Id, code = code },
-                        protocol: Request.Scheme);
-
+                    var callbackUrl = Url.ActionLink(
+                        action: "ConfirmEmail",
+                        values: new { userName = inp.UserName, code = code }
+                    );
                     await _emailSender.SendEmailAsync(inp.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    return StatusCode(201);
+                    this.Response.ContentType = "application/json";
+                    this.Response.StatusCode = 200;
+                    return Json(new
+                    {
+                        role = "user"
+                    });
                 }
             }
             return StatusCode(400);
         }
-        [HttpGet]
-        public async Task<IActionResult> ConfirmEmailAsync(string userId, string code)
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmailAsync(string userName, string code)
         {
-            if (userId == null || code == null)
+            if (userName == null || code == null)
             {
                 this.Response.StatusCode = 401;
                 return BadRequest();
             }
 
-            var user = await _userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
             {
                 return BadRequest();
@@ -119,32 +135,33 @@ namespace f7.Areas.Identity.Controllers
 
                 if (result.Succeeded)
                 {
-                    return StatusCode(201);
+                    return StatusCode(200);
                 }
             }
             return StatusCode(401);
         }
-
-        /*/
-        public async Task<IActionResult> LoginAsync(InputModel input)
-        {
-            if (this.ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(
-                    new f7AppUser {UserName = input.UserName },
-                    password: input.Password,
-                    isPersistent: false,
-                    lockoutOnFailure: false);
-
-                if (result.Succeeded)
-                {
-                    return StatusCode(201);
-                }
-            }
-            return StatusCode(401);
-        }
-        //*/
     }
+    /*/
+    public async Task<IActionResult> LoginAsync(InputModel input)
+    {
+        if (this.ModelState.IsValid)
+        {
+            var result = await _signInManager.PasswordSignInAsync(
+                new f7AppUser {UserName = input.UserName },
+                password: input.Password,
+                isPersistent: false,
+                lockoutOnFailure: false);
+
+            if (result.Succeeded)
+            {
+                return StatusCode(201);
+            }
+        }
+        return StatusCode(401);
+    }
+    //*/
+
+
     public class InputModel
     {
         [Required]
@@ -158,7 +175,8 @@ namespace f7.Areas.Identity.Controllers
         [Required]
         [StringLength(50, ErrorMessage = "Password must be at least {2} characters", MinimumLength = 8)]
         public string Password { get; set; }
+
+        [StringLength(50, ErrorMessage = "DisplayName is max at {1} characters, min at {2} characters", MinimumLength = 6)]
+        string DisplayName { get; set; }
     }
-
-
 }
