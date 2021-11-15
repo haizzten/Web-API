@@ -15619,6 +15619,11 @@
   "RootNamespace": "f7",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Account\\Login.cshtml",
+      "TargetPath": "Areas\\Identity\\Views\\Account\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
@@ -15644,8 +15649,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Identity\\Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Identity\\Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
