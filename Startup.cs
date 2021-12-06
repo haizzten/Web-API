@@ -1,7 +1,11 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +13,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 using f7.Services;
 using f7.Models;
@@ -45,6 +50,7 @@ namespace f7
 
             services.AddDefaultIdentity<f7AppUser>(option =>
                 {
+
                     option.SignIn.RequireConfirmedEmail = true;
 
                     option.Password.RequiredLength = 8;
@@ -58,19 +64,43 @@ namespace f7
 
 
             services
-                .AddAuthentication()
+                .AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    // options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                })
                 .AddGoogle(options =>
                 {
                     options.ClientId = Configuration["Authentication:Google:ClientId"];
                     options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                     options.CallbackPath = "/Identity/Account/ExternalLogin/callback";
                 })
-                .AddFacebook(options =>
+                // .AddFacebook(options =>
+                // {
+                //     options.AppId = Configuration["Authentication:Facebook:AppId"];
+                //     options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                //     options.AccessDeniedPath = "/AccessDeniedPathInfo";
+                //     options.CallbackPath = "/signin-fb";
+                // })
+                .AddJwtBearer(options =>
                 {
-                    options.AppId = Configuration["Authentication:Facebook:AppId"];
-                    options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
-                    options.AccessDeniedPath = "/AccessDeniedPathInfo";
-                    options.CallbackPath = "/signin-fb";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        RequireAudience = true,
+                        RequireSignedTokens = true,
+                        RequireExpirationTime = true,
+
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidAudience = Configuration["Jwt:Audience"],
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+
+                    };
                 });
 
             services.Configure<RazorViewEngineOptions>(options =>
@@ -92,7 +122,6 @@ namespace f7
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

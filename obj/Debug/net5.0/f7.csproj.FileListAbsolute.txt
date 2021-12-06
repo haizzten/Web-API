@@ -167,3 +167,7 @@ C:\Users\dell\Documents\Folder 4 text\f7\bin\Debug\net5.0\runtimes\win\lib\netco
 C:\Users\dell\Documents\Folder 4 text\f7\obj\Debug\net5.0\Razor\Areas\Identity\Views\_ViewImports.cshtml.g.cs
 C:\Users\dell\Documents\Folder 4 text\f7\obj\Debug\net5.0\Razor\Areas\Identity\Views\_ViewStart.cshtml.g.cs
 C:\Users\dell\Documents\Folder 4 text\f7\obj\Debug\net5.0\Razor\Areas\Identity\Views\Account\Login.cshtml.g.cs
+C:\Users\dell\Documents\Folder 4 text\f7\bin\Debug\net5.0\AngleSharp.dll
+C:\Users\dell\Documents\Folder 4 text\f7\bin\Debug\net5.0\AspNet.Security.OpenId.dll
+C:\Users\dell\Documents\Folder 4 text\f7\bin\Debug\net5.0\AspNet.Security.OpenId.Steam.dll
+C:\Users\dell\Documents\Folder 4 text\f7\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
