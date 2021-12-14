@@ -17,9 +17,12 @@ using Microsoft.IdentityModel.Tokens;
 
 using f7.Services;
 using f7.Models;
+using f7.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace f7
 {
@@ -38,8 +41,12 @@ namespace f7
             // services.AddControllersWithViews();
 
             services.AddControllers();
+            services.AddHttpContextAccessor();
 
+            services.AddSingleton<IAuthorizationHandler, HasRoleAdminHadler>();
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<JwtAuthenticationService>();
+
             services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSenderInfo"));
 
             services.AddDbContext<f7DbContext>(opt =>
@@ -48,7 +55,8 @@ namespace f7
                     opt.UseSqlServer(connection);
                 });
 
-            services.AddDefaultIdentity<f7AppUser>(option =>
+            services
+                .AddDefaultIdentity<f7AppUser>(option =>
                 {
 
                     option.SignIn.RequireConfirmedEmail = true;
@@ -67,15 +75,32 @@ namespace f7
                 .AddAuthentication(options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    // options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = "JwtAuth";
+                    options.DefaultChallengeScheme = "JwtAuth";
+                    // options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
                 })
-                .AddGoogle(options =>
+                .AddJwtAuthentication(options =>
                 {
-                    options.ClientId = Configuration["Authentication:Google:ClientId"];
-                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                    options.CallbackPath = "/Identity/Account/ExternalLogin/callback";
+                    options.ForwardSignIn = JwtBearerDefaults.AuthenticationScheme;
+                    options.ClaimsIssuer = "local host 5001";
+                    options.tokenHandler = new JwtSecurityTokenHandler();
+                    options.tokenValidationParam = new TokenValidationParameters
+                    {
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Audience"],
+
+                        ValidateIssuer = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
                 })
+                // .AddGoogle(options =>
+                // {
+                //     options.ClientId = Configuration["Authentication:Google:ClientId"];
+                //     options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                //     // options.CallbackPath = "/Identity/Account/ExternalLogin/callback";
+                //     options.CallbackPath = "/Items";
+                // })
                 // .AddFacebook(options =>
                 // {
                 //     options.AppId = Configuration["Authentication:Facebook:AppId"];
@@ -83,25 +108,37 @@ namespace f7
                 //     options.AccessDeniedPath = "/AccessDeniedPathInfo";
                 //     options.CallbackPath = "/signin-fb";
                 // })
-                .AddJwtBearer(options =>
+                // .AddJwtBearer(options =>
+                // {
+                //     options.TokenValidationParameters = new TokenValidationParameters
+                //     {
+                //         RequireAudience = true,
+                //         RequireSignedTokens = true,
+                //         RequireExpirationTime = true,
+
+                //         ValidateIssuer = true,
+                //         ValidateAudience = true,
+                //         ValidateIssuerSigningKey = true,
+
+                //         ValidAudience = Configuration["Jwt:Audience"],
+                //         ValidIssuer = Configuration["Jwt:Issuer"],
+
+                //         IssuerSigningKey = new SymmetricSecurityKey(
+                //             Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+
+                //     };
+                // })
+                ;
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin role", policyBuilder =>
                 {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        RequireAudience = true,
-                        RequireSignedTokens = true,
-                        RequireExpirationTime = true,
-
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
-
-                        ValidAudience = Configuration["Jwt:Audience"],
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-
-                    };
+                    policyBuilder.AddRequirements(new IsRoleAdminRequirement("admin"));
                 });
+
+                // options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireClaim("").Build();
+            });
 
             services.Configure<RazorViewEngineOptions>(options =>
                 {

@@ -3,71 +3,87 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using f7;
+using f7.Services;
+using f7.Models;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace f7.Controllers
 {
     [Authorize]
-    [Route("Authentication/[action]")]
-    public class AuthenticationController : Controller
+    [Route("api/[action]")]
+    public class AuthController : Controller
     {
+        f7DbContext _dbContext;
+        JwtAuthenticationService _authService;
         private IConfiguration Configuration;
-        public AuthenticationController(IConfiguration configuration)
+        UserManager<f7AppUser> _userManager;
+        public AuthController(
+            f7DbContext dbContext,
+            IConfiguration configuration,
+            JwtAuthenticationService authService,
+            UserManager<f7AppUser> userManager)
         {
+            _dbContext = dbContext;
+            _authService = authService;
             Configuration = configuration;
+            _userManager = userManager;
         }
 
-
         [AllowAnonymous]
-        // public async Task<IActionResult> Login(UserModel model)
-        public IActionResult Login(UserModel model)
+        [HttpPost]
+        public async Task<IActionResult> Authorization([FromBody] InputModel model)
         {
             IActionResult result = Unauthorized();
             if (ModelState.IsValid)
             {
-                if (model.Password == "123" && model.UserName == "admin")
+                var user = await _userManager.FindByNameAsync(userName: model.username);
+                if (user != null)
                 {
-                    result = Ok(GenerateJwtToken(model: model));
+                    if (await _userManager.CheckPasswordAsync(user, model.password))
+                    {
+                        return Ok(new LoginResult
+                        {
+                            Principal = "local host",
+                            Issuer = "local host too",
+                            AccessToken = _authService.GenerateJwtToken(model: user)
+                        });
+                    }
                 }
             }
-            // await Task.FromResult(result);
             return result;
         }
-        private string GenerateJwtToken(UserModel model)
+
+        [Authorize("Admin role")]
+        [HttpGet]
+        public async Task<IActionResult> GetAllUser()
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]));
-            var Credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var Claims = new List<Claim>(){
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, model.UserName),
-                new Claim(JwtRegisteredClaimNames.Email, "huy20022001@gmail.com")
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: Configuration["Jwt:Issuer"],
-                audience: Configuration["Jwt:Audience"],
-                claims: Claims,
-                expires: DateTime.Now.AddHours(3),
-                signingCredentials: Credentials
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return Ok(await _dbContext.Users
+                .Select(u => new { u.DisplayName, u.Email, u.Id })
+                .Take(10)
+                .ToListAsync());
         }
-
-
     }
-    public class UserModel
+    public class LoginResult
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        [JsonPropertyName("principal")]
+        public string Principal { get; set; }
+
+        [JsonPropertyName("isser")]
+        public string Issuer { get; set; }
+
+        [JsonPropertyName("access_token")]
+        public string AccessToken { get; set; }
     }
 }

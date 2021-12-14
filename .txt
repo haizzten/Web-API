@@ -1,0 +1,7 @@
+https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?
+response_type = code &
+client_id = 384527635527-rdfp373i8d9cfjbla20alg1hv60n3sqn.apps.googleusercontent.com &
+redirect_uri = https%3A%2F%2Flocalhost%3A5001%2FItems &
+scope = openid%20profile%20email &
+state = CfDJ8AP5gJ8ZSTNPvablY36SdYXw6ldhNVMZK32v7dV2CZbpE8tWXOy2fwNkBHYQMRbv76_qyiuhmz959I6FnQHPFsBc85hST6eds1zhz8fsdbmfOReCPXa0teue2F-jlGLKz8DzN2e6sWv9wufC5E9wbvoBfWeZFG1eQ6j0PR3ub9VsbDWVihO_yBb2ieBh4lG4_NRMrSn6nIzKTr7YO_PWVqReYhi4vaJ09lzeUtKTeWmw &
+flowName = GeneralOAuthFlow
