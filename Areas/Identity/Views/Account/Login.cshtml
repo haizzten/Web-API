@@ -1,15 +1,10 @@
-@using System.Collections.Generic
+﻿@using System.Collections.Generic
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Authentication
-@using Microsoft.AspNetCore.Identity
-@using f7.Models
-@using f7.Areas.Identity.Models
-
 @model LoginViewModel
-@inject SignInManager<f7AppUser> SignInManager
+@inject SignInManager<AppUser> SignInManager
 
 @{
-
     ViewData["Title"] = "Đăng nhập";
 }
 
@@ -17,16 +12,15 @@
 <div class="row">
     <div class="col-md-8">
         <section>
-            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post"
-                class="form-horizontal" role="form">
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
                 <h4>Sử dụng tài khoản đã đăng ký để đăng nhập</h4>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="UserName" class="control-label"></label>
+                    <label asp-for="UserNameOrEmail" class="control-label"></label>
                     <div class="col-md-10">
-                        <input asp-for="UserName" class="form-control" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <input asp-for="UserNameOrEmail" class="form-control" />
+                        <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -65,37 +59,6 @@
             <h4>Đăng nhập bằng tài khoản.</h4>
             <hr />
             @{
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 var schemes = await SignInManager.GetExternalAuthenticationSchemesAsync();
                 var loginProviders = schemes.ToList();
                 if (loginProviders.Count == 0)
@@ -105,145 +68,19 @@
                             Ứng dụng chưa hỗ trợ đăng nhập từ tài khoản ngoài
                         </p>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
                 else
                 {
-                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]"
-                method="post" class="form-horizontal" role="form">
+                    <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
                         <div>
                             <p>
                                 @foreach (var provider in loginProviders)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name"
-                                title="Log in using your @provider.Name account">@provider.Name</button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.Name account">@provider.Name</button>
                                 }
                             </p>
                         </div>
                     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 }
             }
         </section>
@@ -251,5 +88,5 @@
 </div>
 
 @section Scripts {
-@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

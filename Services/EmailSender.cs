@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using System;
 
@@ -41,6 +40,10 @@ namespace f7.Services
             }
         }
 
+    }
+    public interface IEmailSender
+    {
+        Task SendEmailAsync(string email, string subject, string message);
     }
     public class EmailSenderOptions
     {

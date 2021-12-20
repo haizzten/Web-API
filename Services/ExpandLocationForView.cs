@@ -15,6 +15,7 @@ namespace f7.Services
             var newViewsLocation = viewLocations.ToList<string>();
             newViewsLocation.AddRange(new string[]
             {
+                "/Areas/{1}/Views/{0}.cshtml",
                 "/Areas/{2}/Views/{0}.cshtml"
             });
 

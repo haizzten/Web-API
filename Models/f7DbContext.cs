@@ -3,10 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace f7.Models
 {
-    public class f7DbContext : IdentityDbContext<f7AppUser>
+    public class f7DbContext : IdentityDbContext<AppUser>
     {
-        public f7DbContext(DbContextOptions<f7DbContext> options) : base(options)
-        { }
+        public f7DbContext(DbContextOptions<f7DbContext> options) : base(options){ }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
             base.OnConfiguring(builder);
@@ -31,7 +30,7 @@ namespace f7.Models
                 .Property(w => w.WarehouseId)
                 .ValueGeneratedOnAdd();
 
-            builder.Entity<f7AppUser>(entity =>
+            builder.Entity<AppUser>(entity =>
             {
                 entity
                     .HasIndex(user => user.UserName, "Unique_UserName_Constraint")

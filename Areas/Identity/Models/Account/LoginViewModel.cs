@@ -1,16 +1,20 @@
-using System.ComponentModel.DataAnnotations;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
 
-namespace f7.Areas.Identity.Models
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace f7.Areas.Identity.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [EmailAddress]
-        [Display(Name = "Thư điện tử")]
-        public string Email { get; set; }
-
         [Required(ErrorMessage = "Phải nhập {0}")]
         [Display(Name = "Địa chỉ email hoặc tên tài khoản")]
-        public string UserName { get; set; }
+        public string UserNameOrEmail { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]

@@ -19,8 +19,6 @@ namespace f7.Services
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            // SecurityToken validatedToken;
-
             ClaimsPrincipal principal = ValidateToken(out SecurityToken validatedToken);
             if (principal == null) return AuthenticateResult.NoResult();
 

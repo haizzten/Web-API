@@ -33,7 +33,7 @@ namespace f7.Services
             _configuration = configuration;
             _option = option.Value;
         }
-        public string GenerateJwtToken(f7AppUser model)
+        public string GenerateJwtToken(AppUser model)
         {
             var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
             var securityKey = new SymmetricSecurityKey(key);

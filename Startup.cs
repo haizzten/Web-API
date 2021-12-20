@@ -3,13 +3,11 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity.UI.Services;
+// using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -56,57 +54,58 @@ namespace f7
                 });
 
             services
-                .AddDefaultIdentity<f7AppUser>(option =>
+                .AddDefaultIdentity<AppUser>(options =>
                 {
+                    options.SignIn.RequireConfirmedEmail = false;
 
-                    option.SignIn.RequireConfirmedEmail = true;
+                    options.Password.RequiredLength = 8;
+                    options.Password.RequireUppercase = true;
+                    options.Password.RequireDigit = true;
 
-                    option.Password.RequiredLength = 8;
-                    option.Password.RequireUppercase = true;
-                    option.Password.RequireDigit = true;
-
-                    option.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 1, 0);
-                    option.Lockout.MaxFailedAccessAttempts = 2;
+                    options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 1, 0);
+                    options.Lockout.MaxFailedAccessAttempts = 2;
                 })
                 .AddEntityFrameworkStores<f7DbContext>();
-
 
             services
                 .AddAuthentication(options =>
                 {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultAuthenticateScheme = "JwtAuth";
-                    options.DefaultChallengeScheme = "JwtAuth";
-                    // options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    // options.DefaultAuthenticateScheme = "JwtAuth";
                 })
-                .AddJwtAuthentication(options =>
+                .AddCookie(options =>
                 {
-                    options.ForwardSignIn = JwtBearerDefaults.AuthenticationScheme;
-                    options.ClaimsIssuer = "local host 5001";
-                    options.tokenHandler = new JwtSecurityTokenHandler();
-                    options.tokenValidationParam = new TokenValidationParameters
-                    {
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Audience"],
+                    options.LoginPath = "/account/login";
+                    options.LogoutPath = "/account/logout";
 
-                        ValidateIssuer = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                    };
                 })
+                // .AddJwtAuthentication(options =>
+                // {
+                //     options.ForwardSignIn = CookieAuthenticationDefaults.AuthenticationScheme;
+                //     options.ClaimsIssuer = "local host 5001";
+                //     options.tokenHandler = new JwtSecurityTokenHandler();
+                //     options.tokenValidationParam = new TokenValidationParameters
+                //     {
+                //         ValidIssuer = Configuration["Jwt:Issuer"],
+                //         ValidAudience = Configuration["Jwt:Audience"],
+
+                //         ValidateIssuer = true,
+                //         IssuerSigningKey = new SymmetricSecurityKey(
+                //             Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                //     };
+                // })
                 // .AddGoogle(options =>
                 // {
                 //     options.ClientId = Configuration["Authentication:Google:ClientId"];
                 //     options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                //     // options.CallbackPath = "/Identity/Account/ExternalLogin/callback";
-                //     options.CallbackPath = "/Items";
+                //     options.CallbackPath = "/google-callback";
                 // })
                 // .AddFacebook(options =>
                 // {
                 //     options.AppId = Configuration["Authentication:Facebook:AppId"];
                 //     options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 //     options.AccessDeniedPath = "/AccessDeniedPathInfo";
-                //     options.CallbackPath = "/signin-fb";
+                //     options.CallbackPath = "/fb-callback";
                 // })
                 // .AddJwtBearer(options =>
                 // {
@@ -134,7 +133,7 @@ namespace f7
             {
                 options.AddPolicy("Admin role", policyBuilder =>
                 {
-                    policyBuilder.AddRequirements(new IsRoleAdminRequirement("admin"));
+                    policyBuilder.AddRequirements(new IsRoleRequirement("admin"));
                 });
 
                 // options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireClaim("").Build();
@@ -172,10 +171,10 @@ namespace f7
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                // endpoints.MapControllerRoute(
-                // name: "default",
-                // pattern: "{controller=Home}/{action=Index}/{id?}"
-                // );
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
             }
             );
         }
