@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace f7.Models
 {
     [Table("customers")]
-    public partial class Customer
+    public partial class CustomerModels
     {
         [Key]
         public string CustomerId { get; set; }

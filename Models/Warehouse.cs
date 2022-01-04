@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace f7.Models
 {
     [Table("warehouse")]
-    public partial class Warehouse
+    public partial class WarehouseModels
     {
         [Key]
         public int WarehouseId { get; set; }

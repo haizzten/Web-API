@@ -1,6 +1,3 @@
-// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-
 using System.Linq;
 using System.Threading.Tasks;
 using f7.Areas.Identity.Models.ManageViewModels;
@@ -17,17 +14,17 @@ namespace f7.Areas.Identity.Controllers
 
     [Authorize]
     [Area("Identity")]
-    [Route("/Member/[action]")]
+    [Route("/Manage/[action]")]
     public class ManageController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<f7AppUser> _userManager;
+        private readonly SignInManager<f7AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ManageController> _logger;
 
         public ManageController(
-        UserManager<AppUser> userManager,
-        SignInManager<AppUser> signInManager,
+        UserManager<f7AppUser> userManager,
+        SignInManager<f7AppUser> signInManager,
         IEmailSender emailSender,
         ILogger<ManageController> logger)
         {
@@ -82,7 +79,7 @@ namespace f7.Areas.Identity.Controllers
             RemovePhoneSuccess,
             Error
         }
-        private Task<AppUser> GetCurrentUserAsync()
+        private Task<f7AppUser> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

@@ -15639,13 +15639,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\_ItemEditPartial.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\_ItemEditPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Account\\ExternalLoginFailure.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Account\\ExternalLoginFailure.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\Create.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\Create.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\VerifyPhoneNumber.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Manage\\VerifyPhoneNumber.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\CustomerDelete.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\CustomerDelete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15659,6 +15674,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\CustomerDetails.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\CustomerDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\DisplayRecoveryCodes.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Manage\\DisplayRecoveryCodes.cshtml",
       "FileKind": "mvc"
@@ -15669,8 +15689,43 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\Edit.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\Edit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\Details.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\Details.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_ManagementParital.cshtml",
+      "TargetPath": "Views\\Shared\\_ManagementParital.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderIndex.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\StaffDetails.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\StaffDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Account\\AccessDenied.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Account\\AccessDenied.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\Index.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\ItemIndex.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\ItemIndex.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15679,13 +15734,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_StatusMessage.cshtml",
+      "TargetPath": "Views\\Shared\\_StatusMessage.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\User\\Index.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\User\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\Delete.cshtml",
-      "TargetPath": "Areas\\Item\\Views\\Delete.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15694,18 +15754,33 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Cart\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Cart\\Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderDetail origin.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderDetail origin.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\Index.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Manage\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\Details.cshtml",
-      "TargetPath": "Areas\\Item\\Views\\Details.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\EditProfile.cshtml",
+      "TargetPath": "Areas\\Identity\\Views\\Manage\\EditProfile.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\EditProfile.cshtml",
-      "TargetPath": "Areas\\Identity\\Views\\Manage\\EditProfile.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\CustomerEdit.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\CustomerEdit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15729,13 +15804,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Home\\HomeIndex.cshtml",
+      "TargetPath": "Views\\Home\\HomeIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\User\\AddRole.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\User\\AddRole.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Home\\Index.cshtml",
-      "TargetPath": "Views\\Home\\Index.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderEdit.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderEdit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15744,13 +15824,48 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\OrderDetailDelete.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\OrderDetailDelete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Cart\\Views\\_CartIndexPartial.cshtml",
+      "TargetPath": "Areas\\Cart\\Views\\_CartIndexPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\ItemDelete.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\ItemDelete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\_ItemCreatePartial.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\_ItemCreatePartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\OrderDetailDetails.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\OrderDetailDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\Error.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Manage\\Error.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_Paging.cshtml",
-      "TargetPath": "Views\\Shared\\_Paging.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\StaffIndex.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\StaffIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\OrderDetailEdit.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\OrderDetailEdit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\StaffEdit.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\StaffEdit.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15766,11 +15881,6 @@
     {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Role\\Create.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Role\\Create.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\Index.cshtml",
-      "TargetPath": "Areas\\Item\\Views\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15794,8 +15904,43 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\StaffCreate.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\StaffCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderDetail.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderDetail.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\OrderDetailCreate.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\OrderDetailCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\ItemCreate.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\ItemCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\User\\AddClaim.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\User\\AddClaim.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderDelete.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderDelete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15804,13 +15949,18 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\Edit.cshtml",
-      "TargetPath": "Areas\\Item\\Views\\Edit.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_CartPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_CartPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\Create.cshtml",
-      "TargetPath": "Areas\\Item\\Views\\Create.cshtml",
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\Delete.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\Delete.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderIndex origin.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderIndex origin.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15819,8 +15969,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Views\\Shared\\_PagingPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_PagingPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Account\\ExternalLoginConfirmation.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Account\\ExternalLoginConfirmation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\StaffDelete.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\StaffDelete.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15834,8 +15994,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Account\\ResetPasswordConfirmation.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Account\\ResetPasswordConfirmation.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\ItemEdit.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\ItemEdit.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\ItemDetail\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\ItemDetail\\Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15846,6 +16021,21 @@
     {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\_ViewStart.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\CustomerIndex.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\CustomerIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Cart\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Cart\\Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Item\\Views\\ItemDetails.cshtml",
+      "TargetPath": "Areas\\Item\\Views\\ItemDetails.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15864,8 +16054,38 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\OrderDetail\\Views\\OrderDetailIndex.cshtml",
+      "TargetPath": "Areas\\OrderDetail\\Views\\OrderDetailIndex.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\_ViewImports.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\OrderCreate.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\OrderCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Customer\\Views\\CustomerCreate.cshtml",
+      "TargetPath": "Areas\\Customer\\Views\\CustomerCreate.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Staff\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Staff\\Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15876,6 +16096,11 @@
     {
       "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Identity\\Views\\Manage\\ChangePassword.cshtml",
       "TargetPath": "Areas\\Identity\\Views\\Manage\\ChangePassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\dell\\Documents\\Folder 4 text\\f7\\Areas\\Order\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Areas\\Order\\Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {

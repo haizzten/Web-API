@@ -1,0 +1,47 @@
+@model f7.Areas.Order.DetailViewModel;
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header card-header">
+                <h5 class="modal-title " id="exampleModalLabel">Đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table class="table">
+                        <div class="row bg-dark">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(( model) => model.Items[0].ItemName)</th>
+                                    <th>@Html.DisplayNameFor(( model) => model.Items[0].Price)</th>
+                                    <th style="width: 100px">
+                                        @Html.DisplayNameFor(( model) => model.Items[0].Quantity)</th>
+                                    <th>@Html.DisplayNameFor(( model) => model.Items[0].Unit)</th>
+                                    <th>@Html.DisplayNameFor(( model) => model.Items[0].Amount)</th>
+                                </tr>
+                            </thead>
+                        </div>
+                        <div class="row">
+                            <tbody>
+                                @foreach (var item in Model.Items)
+
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(model => item.ItemName)</td>
+                                        <td>@Html.DisplayFor(model => item.Price)</td>
+                                        <td>@Html.DisplayFor(model => item.Quantity)</td>
+                                        <td>@Html.DisplayFor(model => item.Unit)</td>
+                                        <td>@Html.DisplayFor(model => item.Amount)</td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </div>
+                    </table>
+                    <h5 class="text-end">@Model.TotalPrice</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* </div> *@

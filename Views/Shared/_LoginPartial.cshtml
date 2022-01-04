@@ -2,19 +2,24 @@
 @using f7.Models
 @using System.Security.Claims;
 
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
+@inject SignInManager<f7AppUser> SignInManager
+@inject UserManager<f7AppUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="manage" asp-action="index" title="Manage">Hello
-                @UserManager.GetUserName(User)!</a>
+            <a id="manage" class="nav-link text-dark" asp-area="identity" asp-controller="manage" asp-action="index"
+            title="Manage">
+                @* <i class="fas fa-user"></i> @UserManager.GetUserName(User)!</a> *@
+                <i class="fas fa-user-edit"></i></a>
+
         </li>
+        <li class="nav-item d-flex p-1 align-items-center">|</li>
         <li class="nav-item">
-            <form id="logoutForm" class="form-inline" asp-controller="account" asp-action="logout">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <form id="logoutForm" class="form-inline" asp-area="identity" asp-controller="account" asp-action="logoff">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">
+                    <i class="fas fa-sign-out-alt"></i></button>
             </form>
         </li>
     }
@@ -22,11 +27,13 @@
     {
         <li class="nav-item">
             <a class="nav-link text-dark" id="register" asp-area="Identity" asp-controller="Account"
-            asp-action="register">Đăng ký</a>
+            asp-action="register"><i class="fas fa-edit"></i></a>
         </li>
+        <li class="nav-item d-flex p-1 align-items-center">|</li>
         <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-controller="Account" asp-action="login">Đăng
-                nhập</a>
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-controller="Account" asp-action="login"><i
+                class="fas fa-sign-in-alt"></i>
+            </a>
         </li>
     }
 </ul>

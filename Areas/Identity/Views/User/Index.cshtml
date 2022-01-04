@@ -37,8 +37,8 @@
     {
         currentpage = Model.currentPage,
         countpages = Model.countPages,
-        generateUrl = (int? p) => Url.Action("Index", new { p = p})
+        generateUrl = (int? p) => Url.Action("Index", new { p = p })
     };
 }
 
-<partial name="_PagingXTL" model="@pagingmodel" />
+<partial name="_PagingPartial" model="@pagingmodel" />

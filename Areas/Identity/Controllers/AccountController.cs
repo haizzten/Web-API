@@ -25,14 +25,14 @@ namespace f7.Areas.Identity.Controllers
     [Route("/Account/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<f7AppUser> _userManager;
+        private readonly SignInManager<f7AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<AccountController> _logger;
 
         public AccountController(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
+            UserManager<f7AppUser> userManager,
+            SignInManager<f7AppUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
@@ -42,8 +42,18 @@ namespace f7.Areas.Identity.Controllers
             _logger = logger;
         }
 
+        // [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return Json(new
+            {
+                testKey = "test value"
+            });
+        }
+
         // GET: /Account/Login
-        [HttpGet("/login/")]
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
@@ -53,7 +63,7 @@ namespace f7.Areas.Identity.Controllers
 
         //
         // POST: /Account/Login
-        [HttpPost("/login/")]
+        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
@@ -62,7 +72,7 @@ namespace f7.Areas.Identity.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                AppUser user = new AppUser();
+                f7AppUser user = new f7AppUser();
                 var result = await _signInManager.PasswordSignInAsync(model.UserNameOrEmail, model.Password, model.RememberMe, lockoutOnFailure: true);
                 // Tìm UserName theo Email, đăng nhập lại
                 if ((!result.Succeeded))
@@ -85,7 +95,7 @@ namespace f7.Areas.Identity.Controllers
                     user = await _userManager.FindByNameAsync(model.UserNameOrEmail) ??
                         await _userManager.FindByEmailAsync(model.UserNameOrEmail);
                     HttpContext.User = await _signInManager.CreateUserPrincipalAsync(user);
-                    
+
                     _logger.LogInformation(1, "User logged in.");
                     return LocalRedirect(returnUrl);
                 }
@@ -138,7 +148,7 @@ namespace f7.Areas.Identity.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.UserName, Email = model.Email };
+                var user = new f7AppUser { UserName = model.UserName, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
@@ -247,6 +257,7 @@ namespace f7.Areas.Identity.Controllers
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
             if (result.Succeeded)
             {
+
                 // Cập nhật lại token
                 await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
@@ -291,7 +302,7 @@ namespace f7.Areas.Identity.Controllers
                 // Input.Email
                 var registeredUser = await _userManager.FindByEmailAsync(model.Email);
                 string externalEmail = null;
-                AppUser externalEmailUser = null;
+                f7AppUser externalEmailUser = null;
 
                 // Claim ~ Dac tinh mo ta mot doi tuong
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
@@ -339,7 +350,7 @@ namespace f7.Areas.Identity.Controllers
                 if ((externalEmailUser == null) && (externalEmail == model.Email))
                 {
                     // Chua co Account -> Tao Account, lien ket, dang nhap
-                    var newUser = new AppUser()
+                    var newUser = new f7AppUser()
                     {
                         UserName = externalEmail,
                         Email = externalEmail
@@ -365,7 +376,7 @@ namespace f7.Areas.Identity.Controllers
                 }
 
 
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var user = new f7AppUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

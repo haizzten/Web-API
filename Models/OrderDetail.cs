@@ -10,7 +10,7 @@ namespace f7.Models
 {
     [Table("orderDetail")]
     [Index(nameof(OrderId), Name = "IX_orderDetail_OrderId")]
-    public partial class OrderDetail
+    public partial class OrderDetailModels
     {
         [Key]
         public string ItemId { get; set; }
@@ -20,9 +20,9 @@ namespace f7.Models
 
         [ForeignKey(nameof(ItemId))]
         [InverseProperty("OrderDetails")]
-        public virtual Item Item { get; set; }
+        public virtual ItemModels Item { get; set; }
         [ForeignKey(nameof(OrderId))]
         [InverseProperty("OrderDetails")]
-        public virtual Order Order { get; set; }
+        public virtual OrderModels Order { get; set; }
     }
 }

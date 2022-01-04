@@ -9,21 +9,27 @@ using Microsoft.EntityFrameworkCore;
 namespace f7.Models
 {
     [Table("items")]
-    public partial class Item
+    public partial class ItemModels
     {
-        public Item()
+        public ItemModels()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            OrderDetails = new HashSet<OrderDetailModels>();
         }
 
         [Key]
         public string ItemId { get; set; }
+        [Display(Name = "Tên sản phẩm")]
         public string ItemName { get; set; }
+        [Display(Name = "Mô tả")]
         public string Description { get; set; }
+        [Display(Name = "Đơn vị tính")]
         public string Unit { get; set; }
-        public int? WarehouseId { get; set; }
+        [Display(Name = "Giá bán")]
+        public int SellingPrice { get; set; }
+        [Display(Name = "Liên kết ảnh")]
+        public string Image { get; set; }
 
-        [InverseProperty(nameof(OrderDetail.Item))]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        [InverseProperty(nameof(OrderDetailModels.Item))]
+        public virtual ICollection<OrderDetailModels> OrderDetails { get; set; }
     }
 }

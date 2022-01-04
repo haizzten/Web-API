@@ -10,25 +10,30 @@ namespace f7.Models
 {
     [Table("orders")]
     [Index(nameof(StaffId), Name = "IX_orders_StaffId")]
-    public partial class Order
+    public partial class OrderModels
     {
-        public Order()
+        public OrderModels()
         {
-            OrderDetails = new HashSet<OrderDetail>();
+            OrderDetails = new HashSet<OrderDetailModels>();
         }
 
         [Key]
         public string OrderId { get; set; }
+        [Display(Name = "Ngày tạo")]
         public DateTime CreatedDate { get; set; }
-        public string CustomerId { get; set; }
+        [Display(Name = "Mã khách hàng")]
+        public string UserId { get; set; }
+        [Display(Name = "P.thức t.toán")]
         public string PaymentMethod { get; set; }
-        public int? VatPercent { get; set; }
+        [Display(Name = "Mã nhân viên")]
         public string StaffId { get; set; }
+        [Display(Name = "Tình trạng")]
+        public string State { get; set; }
 
         [ForeignKey(nameof(StaffId))]
         [InverseProperty("Orders")]
-        public virtual Staff Staff { get; set; }
-        [InverseProperty(nameof(OrderDetail.Order))]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual StaffModels Staff { get; set; }
+        [InverseProperty(nameof(OrderDetailModels.Order))]
+        public virtual ICollection<OrderDetailModels> OrderDetails { get; set; }
     }
 }

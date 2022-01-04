@@ -7,7 +7,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using f7.Areas.Identity.Models;
-using f7.Areas.Identity.Models;
 using f7.Areas.Identity.Models.RoleViewModels;
 using f7.Areas.Identity.Models.UserViewModels;
 using f7.ExtendMethods;
@@ -33,9 +32,9 @@ namespace f7.Areas.Identity.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly f7DbContext _context;
 
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<f7AppUser> _userManager;
 
-        public UserController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, f7DbContext context, UserManager<AppUser> userManager)
+        public UserController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, f7DbContext context, UserManager<f7AppUser> userManager)
         {
             _logger = logger;
             _roleManager = roleManager;

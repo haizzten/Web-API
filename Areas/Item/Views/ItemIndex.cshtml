@@ -1,0 +1,164 @@
+@model IEnumerable<f7.Models.ItemModels>
+
+@{
+    ViewData["Title"] = "Index";
+    var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
+}
+
+<div class="container" id="modal-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div></div>
+</div>
+
+<div class="container">
+    <div class="table-responsive-lg">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary add-item-btn m-0">Thêm</a>
+        </div>
+        <table class="table table-striped table-light caption-top" id="item-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="">
+                        @Html.DisplayNameFor(model => model.ItemName)
+                    </th>
+                    <th scope="col" style="max-width: 200px">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th scope="col" class="">
+                        @Html.DisplayNameFor(model => model.Unit)
+                    </th>
+                    <th scope="col" class="">
+                        @Html.DisplayNameFor(model => model.SellingPrice)
+                    </th>
+                    <th scope="col" class="">
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th scope="col" class=""></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ItemName)
+                        </td>
+                        <td style="max-width: 200px">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Unit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SellingPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Image)
+                        </td>
+                        <td>
+                            <a class="update-btn btn btn-secondary">Sửa</a>
+                            @* <a class="detail-btn btn btn-info text-light">Chi tiết</a> *@
+                            <a class="delete-btn btn btn-danger">Xóa</a>
+                            <input type="hidden" name="id" value="@item.ItemId">
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center mt-5" id="cart-icon-wrapper">
+        <partial name="_PagingPartial" model="@pagingModel" />
+    </div>
+
+</div>
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".update-btn").on('click', function () {
+            var text = $(this).nextAll("input").first().serialize();
+            $.ajax({
+                url: '@Url.Action("getedit", "item")',
+                type: "GET",
+                data: text,
+                success: function (d, s, x) {
+                    $("#launch-btn + div").html(d);
+                    $("#launch-btn").click();
+                },
+                error: function (d, s, x) {
+                    alert(x.responseText);
+                }
+            });
+        });
+
+        $(".add-item-btn").click(function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetCreate", "item")',
+                contentType: "text/plain; charset=UTF-8",
+                success: function (result, status, xhr) {
+                    var modalWrapper = $("#launch-btn + div");
+                    modalWrapper.html(result);
+                    $("#launch-btn").click();
+                },
+                error: function (result, status, xhr) {
+                    alert(status);
+                }
+            });
+        });
+
+        $("#modal-container").on('click', "#create-btn", function () {
+            var form = $("form[name=create-item]");
+            var form_encoded = form.serialize();
+            alert(form_encoded);
+            $.ajax({
+                url: '@Url.Action("PostCreate", "item")',
+                type: "POST",
+                data: form.serialize(),
+                success: function (data) {
+                    alert("them thanh cong");
+                    $("exampleModal").focusout();
+                },
+                error: function (d, s, x) {
+                    alert(x.responseText);
+                }
+            });
+        });
+
+        $("#modal-container").on('click', "#update-btn", function () {
+            var serializedData = $("form[name=update-item]").serialize();
+            $.ajax({
+                url: '@Url.Action("PostEdit", "Item")',
+                type: "POST",
+                data: serializedData,
+                success: function (d, s, x) {
+                    $("modaldialog").focusout();
+                    alert('Đã sửa');
+                },
+                error: function (d, s, x) {
+                    alert(x.responseText);
+                }
+            });
+        });
+
+        $(".delete-btn").click(function () {
+            var serializedData = $(this).nextAll("input").serialize();
+            if (confirm("Bạn có chắc muốn xóa?")) {
+                $.ajax({
+                    url: '@Url.Action("postdelete", "Item")',
+                    type: "POST",
+                    data: serializedData,
+                    success: function (d, s, x) {
+                        alert('Đã xóa');
+                    },
+                    error: function (d, s, x) {
+                        alert(x.responseText);
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+}

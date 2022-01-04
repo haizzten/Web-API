@@ -28,12 +28,12 @@ namespace f7.Controllers
         f7DbContext _dbContext;
         JwtAuthenticationService _authService;
         private IConfiguration Configuration;
-        UserManager<AppUser> _userManager;
+        UserManager<f7AppUser> _userManager;
         public AuthController(
             f7DbContext dbContext,
             IConfiguration configuration,
             JwtAuthenticationService authService,
-            UserManager<AppUser> userManager)
+            UserManager<f7AppUser> userManager)
         {
             _dbContext = dbContext;
             _authService = authService;

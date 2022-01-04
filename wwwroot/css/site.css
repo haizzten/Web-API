@@ -69,3 +69,111 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* My own custom styles*/
+
+::-webkit-scrollbar-button{
+  display: none;
+}
+a{
+  text-decoration-line: none;
+}
+.add-minus-item{
+  background-color: rgba(0, 0, 0, 0.123);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.add-minus-item > a{
+  color: #ffffff;
+  height: 100%;
+  width: 100%;
+  font-size: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.add-minus-item > a:hover{
+  color: #38353510;
+}
+.add-minus-item a > i{
+  display: block;
+}
+.button-anchor{
+  padding: 0px 10px;
+  border-radius: 5px;
+  display: inline-flex;
+  background-color: rgb(72 169 231);
+  height: 3rem;
+  justify-content: center;
+  color: white;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+.button-anchor:hover{
+  background-color: rgb(63, 149, 202);
+}
+.cart{
+  display: inline-flex;
+  font-size: 48px;
+  position: sticky;
+  bottom: 50px;
+  left: 100px;
+}
+.cart i{
+  color: #0062a3;
+}
+.cart span {
+  font-size: 1rem;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+.item-card {
+  width: 290px;
+}
+head{
+  z-index: 1020;
+  top: 0;
+  position: sticky;
+}
+#main-container {
+  padding: 12px 24px;
+}
+.no-wrap, table td, table th {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.row-content > div{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.404);
+  padding: 5px 0px;
+  display: flex;
+  align-items: center;
+
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+}
+.wrapper > .wrapped-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapper:hover > .add-minus-item{
+  border-radius: 7px;
+  display: flex;
+  flex-flow: column;
+}

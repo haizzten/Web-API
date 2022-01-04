@@ -16,13 +16,9 @@ namespace f7.Services
             newViewsLocation.AddRange(new string[]
             {
                 "/Areas/{1}/Views/{0}.cshtml",
+                "/Areas/{1}/Views/{1}{0}.cshtml",
                 "/Areas/{2}/Views/{0}.cshtml"
             });
-
-            // foreach (var loc in newViewsLocation)
-            // {
-            //     Console.WriteLine("-- {0}", loc);
-            // }
             return newViewsLocation;
         }
 

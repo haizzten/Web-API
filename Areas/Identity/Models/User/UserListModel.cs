@@ -16,7 +16,7 @@ namespace f7.Areas.Identity.Models.UserViewModels
 
         }
 
-        public class UserAndRole : AppUser
+        public class UserAndRole : f7AppUser
         {
             public string RoleNames { get; set; }
         }

@@ -21,6 +21,10 @@ namespace f7.Authorization
             {
                 context.Succeed(requirement);
             }
+            else if (context.User.IsInRole("Administrator"))
+            {
+                context.Succeed(requirement);
+            }
             return Task.CompletedTask;
         }
     }

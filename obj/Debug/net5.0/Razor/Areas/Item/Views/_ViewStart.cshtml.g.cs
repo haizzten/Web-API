@@ -26,8 +26,15 @@ using f7.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\dell\Documents\Folder 4 text\f7\Areas\Item\Views\_ViewImports.cshtml"
+using Microsoft.Extensions.Logging;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8ba80997896990a57d7f91976fad43714b6dc732", @"/Areas/Item/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4b6c61aa004244664d24b1c54222e17d3e466163", @"/Areas/Item/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"ffd1480a9ccb16c79889049d63c48757d66f4ca3", @"/Areas/Item/Views/_ViewImports.cshtml")]
     public class Areas_Item_Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

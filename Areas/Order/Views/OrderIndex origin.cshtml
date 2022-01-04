@@ -1,0 +1,65 @@
+@model IEnumerable<f7.Areas.Order.OrderIndexViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
+}
+<p>
+    <a asp-action="Create">Thêm</a>
+</p>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-3">
+                        @Html.DisplayNameFor(model => model.OrderId)
+                    </th>
+                    <th class="col-3">
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </th>
+                    <th class="col-3">
+                        @Html.DisplayNameFor(model => model.CustomerName)
+                    </th>
+                    <th class="col-3">
+                        @Html.DisplayNameFor(model => model.PaymentMethod)
+                    </th>
+                    <th class="col-3">
+                        @Html.DisplayNameFor(model => model.StaffId)
+                    </th>
+                    <th class="col-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OrderId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PaymentMethod)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffId)
+                        </td>
+                        <td>
+                            <a class="btn btn-info mx-1" asp-action="Edit" asp-route-id="@item.OrderId">Sửa</a>
+                            <a class="btn btn-info mx-1" asp-action="Details" asp-route-id="@item.OrderId">Chi tiết</a>
+                            <a class="btn btn-info mx-1" asp-action="Delete" asp-route-id="@item.OrderId">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-5">
+    <partial name="_PagingPartial" model="@pagingModel" />
+</div>

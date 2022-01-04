@@ -1,0 +1,90 @@
+﻿@model IEnumerable<f7.Models.ItemModels>;
+@using f7.Models;
+
+@{
+    ViewData["Title"] = "Home Page";
+    var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
+}
+<div class="container" id="cart-index-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div></div>
+    <a id="cart-icon" class="btn btn-primary m-2 p-3">
+        <i class="fas fa-shopping-cart"></i>Giỏ hàng
+        <span id="cart-badge" class="badge rounded-pill bg-info">0</span>
+    </a>
+</div>
+
+<partial name="_StatusMessage" />
+<div class="container border border-2 rounded" id="main-container">
+    <div class="row justify-content-between">
+        @foreach (var item in Model)
+        {
+            <div class="card border-info border border-2 my-2 item-card p-0">
+                <div class="wrapper">
+                    <div class="wrapped-content">
+                        <img src="img/@item.Image" alt="item's image" class="w-100">
+                    </div>
+                    <div class="add-minus-item">
+                        <a class="add-item"><i class="fas fa-plus"></i></a>
+                        <input type="hidden" value="@item.ItemId">
+                    </div>
+                </div>
+                <a asp-action="details" asp-controller="item" asp-route-id="@item.ItemId" class="d-block">
+                    <div class="card-header ">
+                        <h5>@item.ItemName</h5>
+                    </div>
+                    <div class="card-body no-wrap">@item.Description</div>
+                    <div class="card-footer">@item.SellingPrice Đ</div>
+                </a>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex justify-content-center mt-5">
+        <partial name="_PagingPartial" model="@pagingModel" />
+    </div>
+</div>
+
+
+@section Scripts {
+<script>
+    $(document).ready(function () {
+
+        $(".add-item").on('click', function () {
+            var itemId = ($(this).siblings('input').val());
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("addtocart", "cart")',
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                data: {
+                    itemid: itemId
+                },
+                success: function () {
+                    var cartNum = parseInt($('#cart-icon span').text());
+                    $('#cart-icon span').text(cartNum + 1);
+                },
+                error: function (xhr) {
+                    alert('Có lỗi nhưng không biết lỗi gì' + xhr.statusText);
+                }
+            });
+        });
+        $(document).on("click", "#cart-icon", function () {
+            $.ajax({
+                url: '@Url.Action("IndexPartial", "cart")',
+                type: "GET",
+                success: function (data) {
+                    var modalWrapper = $("#launch-btn + div");
+                    modalWrapper.html(data);
+                    $("#launch-btn").click();
+                },
+                error: function (d, s, x) {
+                    alert(x.responseText);
+                }
+            });
+        });
+
+
+    });
+</script>
+}

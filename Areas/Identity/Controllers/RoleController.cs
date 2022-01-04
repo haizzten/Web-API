@@ -19,7 +19,8 @@ using Microsoft.Extensions.Logging;
 namespace f7.Areas.Identity.Controllers
 {
 
-    [Authorize(Roles = RoleName.Administrator)]
+    // [Authorize(Roles = RoleName.Administrator)]
+    [Authorize("Admin role")]
     [Area("Identity")]
     [Route("/Role/[action]")]
     public class RoleController : Controller
@@ -29,9 +30,9 @@ namespace f7.Areas.Identity.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly f7DbContext _context;
 
-        private readonly UserManager<AppUser> _userManager;
+        private readonly UserManager<f7AppUser> _userManager;
 
-        public RoleController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, f7DbContext context, UserManager<AppUser> userManager)
+        public RoleController(ILogger<RoleController> logger, RoleManager<IdentityRole> roleManager, f7DbContext context, UserManager<f7AppUser> userManager)
         {
             _logger = logger;
             _roleManager = roleManager;

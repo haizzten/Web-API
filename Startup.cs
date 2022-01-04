@@ -3,14 +3,18 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Session;
 // using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 
 using f7.Services;
@@ -19,8 +23,8 @@ using f7.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Identity;
 
 namespace f7
 {
@@ -37,24 +41,39 @@ namespace f7
         public void ConfigureServices(IServiceCollection services)
         {
             // services.AddControllersWithViews();
-
+            services.AddMvc();
             services.AddControllers();
             services.AddHttpContextAccessor();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(config =>
+            {
+                config.Cookie.IsEssential = true;
+                config.Cookie.Name = "Cookie_for_cart";
+                config.IdleTimeout = new TimeSpan(0, 15, 0);
+            });
+
 
             services.AddSingleton<IAuthorizationHandler, HasRoleAdminHadler>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<JwtAuthenticationService>();
+            services.AddScoped<PagingService>();
 
             services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSenderInfo"));
 
             services.AddDbContext<f7DbContext>(opt =>
                 {
-                    string connection = Configuration["ConnectionStrings:SqlConString"];
-                    opt.UseSqlServer(connection);
+                    string connection = Configuration["ConnectionStrings:LocalSqlConString"];
+                    opt.UseSqlServer(connection, builder =>
+                    {
+                        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    });//For 'An exception has been raised that is likely due to a transient failure.
+                    //If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy.'
                 });
 
             services
-                .AddDefaultIdentity<AppUser>(options =>
+                .AddDefaultIdentity<f7AppUser>(options =>
+                // .AddIdentityCore<f7AppUser>(options =>
                 {
                     options.SignIn.RequireConfirmedEmail = false;
 
@@ -65,20 +84,31 @@ namespace f7
                     options.Lockout.DefaultLockoutTimeSpan = new TimeSpan(0, 1, 0);
                     options.Lockout.MaxFailedAccessAttempts = 2;
                 })
-                .AddEntityFrameworkStores<f7DbContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<f7DbContext>()
+                ;
 
             services
                 .AddAuthentication(options =>
                 {
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    // options.DefaultAuthenticateScheme = "JwtAuth";
-                })
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/account/login";
-                    options.LogoutPath = "/account/logout";
+                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
+                    // options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
+                    // options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 })
+                .AddCookie()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    options.CallbackPath = "/google-callback";
+                    // options.SignInScheme = "Cookies";
+                })
+                // .AddCookie(options =>
+                // {
+                //     options.LoginPath = "/account/login";
+                //     options.LogoutPath = "/account/logout";
+                // })
                 // .AddJwtAuthentication(options =>
                 // {
                 //     options.ForwardSignIn = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -88,18 +118,12 @@ namespace f7
                 //     {
                 //         ValidIssuer = Configuration["Jwt:Issuer"],
                 //         ValidAudience = Configuration["Jwt:Audience"],
-
                 //         ValidateIssuer = true,
                 //         IssuerSigningKey = new SymmetricSecurityKey(
                 //             Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 //     };
                 // })
-                // .AddGoogle(options =>
-                // {
-                //     options.ClientId = Configuration["Authentication:Google:ClientId"];
-                //     options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                //     options.CallbackPath = "/google-callback";
-                // })
+
                 // .AddFacebook(options =>
                 // {
                 //     options.AppId = Configuration["Authentication:Facebook:AppId"];
@@ -124,7 +148,6 @@ namespace f7
 
                 //         IssuerSigningKey = new SymmetricSecurityKey(
                 //             Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
-
                 //     };
                 // })
                 ;
@@ -148,7 +171,6 @@ namespace f7
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -162,6 +184,7 @@ namespace f7
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -173,7 +196,7 @@ namespace f7
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{controller=Home}/{action=Index}/{page?}"
                 );
             }
             );

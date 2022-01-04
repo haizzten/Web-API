@@ -1,0 +1,56 @@
+@model f7.Models.ItemModels
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form asp-action="ItemCreatePartial" asp-controller="Item" name="create-item">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="ItemId" class="control-label"></label>
+                                <input asp-for="ItemId" class="form-control" />
+                                <span asp-validation-for="ItemId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ItemName" class="control-label"></label>
+                                <input asp-for="ItemName" class="form-control" />
+                                <span asp-validation-for="ItemName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Unit" class="control-label"></label>
+                                <input asp-for="Unit" class="form-control"
+                                    placeholder="cái, kg, bịch,... (không viết hoa)" />
+                                <span asp-validation-for="Unit" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SellingPrice" class="control-label"></label>
+                                <input asp-for="SellingPrice" class="form-control" />VNĐ
+                                <span asp-validation-for="SellingPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Image" class="control-label"></label>
+                                <input asp-for="Image" class="form-control" placeholder="/img/example.png" />
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" id="create-btn" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>

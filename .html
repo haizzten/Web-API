@@ -1,0 +1,20 @@
+<script type="text/javascript">
+    document.getElementById("cart").onmouseup(e => {
+        document.getElementById("cart").style.backgroundColor = "#cc33ff";
+    });
+
+    $(document).ready(() => {
+        $("#cart-icon").click(e => {
+            e.preventDefault();
+            var cartNum = parseInt($("#cart-span").text());
+            $("#cart-span").text(cartNum + 1);
+        })
+    });
+
+    $(".add-minus-item p:first-child").on("click", e => {
+        console.log(e.target);
+    });
+    $("img").click(e => {
+        console.log(e.target);
+    });
+</script>
