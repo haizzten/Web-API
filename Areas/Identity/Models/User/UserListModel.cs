@@ -1,25 +1,25 @@
 using System.Collections.Generic;
 using f7.Models;
 
-namespace f7.Areas.Identity.Models.UserViewModels
+namespace f7.Models.Models.Areas.Identity.Models.UserViewModels
 {
-        public class UserListModel
-        {
-            public int totalUsers { get; set; }
-            public int countPages { get; set; }
+    public class UserListModel
+    {
+        public int totalUsers { get; set; }
+        public int countPages { get; set; }
 
-            public int ITEMS_PER_PAGE { get; set; } = 10;
+        public int ITEMS_PER_PAGE { get; set; } = 10;
 
-            public int currentPage { get; set; }
+        public int currentPage { get; set; }
 
-            public List<UserAndRole> users { get; set; }
+        public List<UserAndRole> users { get; set; }
 
-        }
+    }
 
-        public class UserAndRole : f7AppUser
-        {
-            public string RoleNames { get; set; }
-        }
+    public class UserAndRole : f7AppUser
+    {
+        public string RoleNames { get; set; }
+    }
 
 
 }

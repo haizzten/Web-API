@@ -7,8 +7,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using f7.Areas.Identity.Models.AccountViewModels;
-using f7.ExtendMethods;
+using f7.Models.Models.Areas.Identity.Models.AccountViewModels;
+using f7.Models.Models.ExtendMethods;
 using f7.Models;
 using f7.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace f7.Areas.Identity.Controllers
+namespace f7.Models.Models.Areas.Identity.Controllers
 {
     [Authorize]
     [Area("Identity")]

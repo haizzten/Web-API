@@ -1,4 +1,4 @@
-@model IEnumerable<f7.Areas.Order.OrderIndexViewModel>
+@model IEnumerable<f7.Models.Models.Areas.Order.OrderIndexViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -81,8 +81,8 @@
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.PaymentMethod)
                     </th>
-                    <th scope="col">
-                        @Html.DisplayNameFor(model => model.StaffId)
+                    <th scope="col" class="mw-200">
+                        @Html.DisplayNameFor(model => model.StaffName)
                     </th>
                     <th scope="col">
                         @Html.DisplayNameFor(model => model.State)
@@ -106,15 +106,15 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PaymentMethod)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StaffId)
+                        <td class="mw-200 no-wrap">
+                            @Html.DisplayFor(modelItem => item.StaffName)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.State)
                         </td>
                         <td>
                             @* <a class="update-btn btn btn-secondary">Sửa</a> *@
-                            <a class="accept-btn btn btn-primary">Duyệt</a>
+                            <a class="accept-btn btn btn-success">Thanh toán</a>
                             <a class="detail-btn btn btn-info text-light">Chi tiết</a>
                             <a class="delete-btn btn btn-danger">Hủy đơn</a>
                             <input type="hidden" name="id" value="@item.OrderId">
@@ -155,7 +155,7 @@
             var itemId = $(this).nextAll("input").first();
             var parent = $(this).closest(".row-content");
             var data = itemId.serialize();
-            if (confirm("Are you sure you want to delete????????")) {
+            if (confirm("Bạn có chắc muốn xóa ???")) {
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("delete", "order")',
@@ -170,7 +170,22 @@
                 });
             }
         });
-
+        $(".accept-btn").click(function () {
+            var itemId = $(this).nextAll("input").first();
+            var parent = $(this).closest(".row-content");
+            var data = itemId.serialize();
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("pay", "order")',
+                data: data,
+                success: function (data, status, xhr) {
+                    window.location.href = '@Url.Action("index", "order")';
+                },
+                error: function (data, status, xhr) {
+                    alert(data.status);
+                }
+            });
+        });
     });
 </script>
 }

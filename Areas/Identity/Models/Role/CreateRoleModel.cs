@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace f7.Areas.Identity.Models.RoleViewModels
+namespace f7.Models.Models.Areas.Identity.Models.RoleViewModels
 {
   public class CreateRoleModel
     {

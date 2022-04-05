@@ -1,4 +1,4 @@
-@model f7.Areas.Order.DetailViewModel;
+@model f7.Models.Models.Areas.Order.DetailViewModel;
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -24,7 +24,6 @@
                         <div class="row">
                             <tbody>
                                 @foreach (var item in Model.Items)
-
                                 {
                                     <tr>
                                         <td>@Html.DisplayFor(model => item.ItemName)</td>
@@ -33,7 +32,6 @@
                                         <td>@Html.DisplayFor(model => item.Unit)</td>
                                         <td>@Html.DisplayFor(model => item.Amount)</td>
                                     </tr>
-
                                 }
                             </tbody>
                         </div>

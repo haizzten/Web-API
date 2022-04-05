@@ -19,14 +19,14 @@ using Microsoft.IdentityModel.Tokens;
 
 using f7.Services;
 using f7.Models;
-using f7.Authorization;
+using f7.Models.Models.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
 
-namespace f7
+namespace f7.Models.Models
 {
     public class Startup
     {

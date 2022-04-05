@@ -102,6 +102,8 @@ a{
 .add-minus-item a > i{
   display: block;
 }
+.br-15{border-radius: 15px;}
+.br-10{ border-radius: 10px; }
 .button-anchor{
   padding: 0px 10px;
   border-radius: 5px;
@@ -133,6 +135,14 @@ a{
   top: 0;
   right: -20px;
 }
+#detail-modal td{
+  border-bottom:1px solid rgb(211, 211, 211);
+  width: 200px;
+}
+form[name="update-batch"] select.select2{
+  width: 100%;
+  height: 1.5rem;
+}
 .item-card {
   width: 290px;
 }
@@ -141,9 +151,53 @@ head{
   top: 0;
   position: sticky;
 }
+#home-item-row > div
+{
+  box-shadow: 0px 2px 10px 0px #a2a2a2;
+  margin: 15px 0px;
+}
+#manage-dropdown a{
+  line-height: 1.5;
+}
+
 #main-container {
   padding: 12px 24px;
 }
+#main-page > *{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 100px;
+  border-radius: 50rem;
+  margin: 10px 20px;
+  color:rgb(4, 94, 196)
+}
+.mw-100{
+  max-width: 100px;
+}
+.mw-150{
+  max-width: 150px;
+}
+.mw-200{
+  max-width: 200px;
+}
+.mw-300{
+  max-width: 300px;
+}
+.over-scroll{overflow: scroll;}
+#search-form > * , .haizz-box-shadow{
+  box-shadow: 0px 0px 8px 0px #a2a2a2bb;
+}
+.select2-selection__rendered {
+  line-height: 34px !important;
+}
+
+.select2-selection {
+  height: 34px !important;
+}
+
+
 .no-wrap, table td, table th {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -156,6 +210,10 @@ head{
   align-items: center;
 
 }
+table td{
+  vertical-align: middle;
+}
+
 .wrapper {
   position: relative;
   width: 100%;
@@ -173,7 +231,10 @@ head{
   justify-content: center;
 }
 .wrapper:hover > .add-minus-item{
-  border-radius: 7px;
+  border-radius: 15px;
   display: flex;
   flex-flow: column;
+}
+.w-290 {
+  width: 290px !important;
 }

@@ -3,7 +3,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace f7.Areas.Identity.Models.AccountViewModels
+namespace f7.Models.Models.Areas.Identity.Models.AccountViewModels
 {
     public class UseRecoveryCodeViewModel
     {

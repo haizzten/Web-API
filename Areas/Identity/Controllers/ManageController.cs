@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
-using f7.Areas.Identity.Models.ManageViewModels;
-using f7.ExtendMethods;
+using f7.Models.Models.Areas.Identity.Models.ManageViewModels;
+using f7.Models.Models.ExtendMethods;
 using f7.Models;
 using f7.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace f7.Areas.Identity.Controllers
+namespace f7.Models.Models.Areas.Identity.Controllers
 {
 
     [Authorize]

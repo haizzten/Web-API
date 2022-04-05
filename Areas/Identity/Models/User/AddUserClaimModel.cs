@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace f7.Areas.Identity.Models.UserViewModels
+namespace f7.Models.Models.Areas.Identity.Models.UserViewModels
 {
   public class AddUserClaimModel
   {

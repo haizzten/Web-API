@@ -94,8 +94,9 @@
     {
         if (pageitem != currentPage)
         {
+            var linh = @generateUrl(pageitem);
             <li class="page-item">
-                <a class="page-link " href="@generateUrl(pageitem)">
+                <a class="page-link " href="@linh">
                     @pageitem
                 </a>
             </li>

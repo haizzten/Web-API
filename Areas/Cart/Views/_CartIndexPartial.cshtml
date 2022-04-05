@@ -1,10 +1,10 @@
-@model IEnumerable<f7.Areas.Cart.Models.CartViewModel>;
+@model IEnumerable<f7.Models.Models.Areas.Cart.Models.CartViewModel>;
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header card-header">
-                <h5 class="modal-title " id="exampleModalLabel">Giỏ hàng</h5>
+                <h5 class="modal-title " id="exampleModalLabel">Đơn hàng</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -25,9 +25,11 @@
                             <div class="row">
                                 <tbody>
                                     @{
+
                                         int i = 0;
                                     }
                                     @foreach (var item in Model)
+
                                     {
                                         <tr>
                                             <td>@Html.DisplayFor(model => item.ItemName)</td>
@@ -39,13 +41,16 @@
                                             <td>@Html.DisplayFor(model => item.Unit)</td>
                                             <td>@Html.DisplayFor(model => item.Amount)</td>
                                         </tr>
+
                                         i++;
+
                                     }
                                 </tbody>
                             </div>
                         </table>
                         <div class="row" id="">
-                            <button class="btn btn-info col-6 h4 rounded" class="button-anchor">Đặt hàng</button>
+                            <button class="btn btn-info col-6 h4 rounded text-light" class="button-anchor">Tạo đơn
+                                hàng</button>
                         </div>
                     </form>
                 </div>

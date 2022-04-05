@@ -1,0 +1,56 @@
+﻿@model IEnumerable<f7.Models.ItemModels>;
+@using f7.Models;
+
+@{
+    ViewData["Title"] = "Home Page";
+    var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
+    var display = this.User.IsInRole("Administrator") ? "inherit" : "none";
+}
+<partial name="_StatusMessage" />
+<div class="container">
+    <div class="row justify-content-around" id="main-page">
+
+        <a asp-action="create" asp-controller="Order" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Tạo đơn hàng</span>
+            </div>
+        </a>
+        <a asp-action="index" asp-controller="order" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Đơn hàng</span>
+            </div>
+        </a>
+        <a asp-action="index" asp-controller="item" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Sản phẩm</span>
+            </div>
+        </a>
+        <a asp-action="index" asp-controller="warehouseReceipt" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Phiếu nhập</span>
+            </div>
+        </a>
+        <a asp-action="index" asp-controller="batch" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Lô hàng</span>
+            </div>
+        </a>
+        <a href="/ManageUser/index" style='display:@display' class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Tài khoản</span>
+            </div>
+        </a>
+        <a asp-action="index" asp-controller="purchaseOrders" class="haizz-box-shadow">
+            @* <div class="card-body no-wrap"></div> *@
+            <div class="text-center fs-4">
+                <span class="fs-4">Đơn đặt hàng</span>
+            </div>
+        </a>
+    </div>
+</div>

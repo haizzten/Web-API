@@ -1,0 +1,45 @@
+@model IEnumerable<f7.Areas.Batch.BatchIndexPartialViewModels>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header card-header">
+                <h5 class="modal-title " id="exampleModalLabel">Chi tiết phiếu nhập</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table class="table">
+                        <div class="row">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.batch.BatchId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.batch.ItemId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.providerName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.batch.Quantity)</th>
+                                    <th>@Html.DisplayNameFor(model => model.batch.Price)</th>
+                                    <th>@Html.DisplayNameFor(model => model.batch.Amount)</th>
+                                </tr>
+                            </thead>
+                        </div>
+                        <div class="row">
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(model => item.batch.BatchId)</td>
+                                        <td>@Html.DisplayFor(model => item.batch.ItemId)</td>
+                                        <td>@Html.DisplayFor(model => item.providerName)</td>
+                                        <td>@Html.DisplayFor(model => item.batch.Quantity)</td>
+                                        <td>@Html.DisplayFor(model => item.batch.Price)</td>
+                                        <td>@Html.DisplayFor(model => item.batch.Amount)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using f7.Models;
-using f7.Areas.Cart.Models;
+using f7.Models.Models.Areas.Cart.Models;
 using Newtonsoft.Json;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
-namespace f7.Areas.Cart.Controllers
+namespace f7.Models.Models.Areas.Cart.Controllers
 {
     [Route("[controller]/[action]")]
     public class CartController : Controller

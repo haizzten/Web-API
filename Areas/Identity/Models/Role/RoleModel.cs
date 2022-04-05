@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace f7.Areas.Identity.Models.RoleViewModels
+namespace f7.Models.Models.Areas.Identity.Models.RoleViewModels
 {
     public class RoleModel : IdentityRole
     {

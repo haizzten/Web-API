@@ -18,10 +18,10 @@
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.CustomerId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.CustomerId)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PaymentMethod)
@@ -39,5 +39,5 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.OrderId">Sửa</a> |
-    <a class="button-anchor" asp-action="Index">Về danh sách</a>
+    <a class="button-anchor" asp-action="Index"><i class="fas fa-arrow-left"></i>Về danh sách</a>
 </div>

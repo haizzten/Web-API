@@ -22,13 +22,23 @@ namespace f7.Models
         [Display(Name = "Ngày tạo")]
         public DateTime CreatedDate { get; set; }
         [Display(Name = "Mã khách hàng")]
-        public string UserId { get; set; }
+        public string CustomerId { get; set; }
         [Display(Name = "P.thức t.toán")]
-        public string PaymentMethod { get; set; }
-        [Display(Name = "Mã nhân viên")]
         public string StaffId { get; set; }
+        [Display(Name = "Tổng tiền")]
+        public int TotalAmount { get; set; }
+
         [Display(Name = "Tình trạng")]
         public string State { get; set; }
+
+        [Display(Name = "Thếu GTGT")]
+        public int VAT { get; set; }
+        public string PaymentMethod { get; set; }
+
+
+
+        public CustomerModels Customer { get; set; }
+        [Display(Name = "Mã nhân viên")]
 
         [ForeignKey(nameof(StaffId))]
         [InverseProperty("Orders")]

@@ -9,13 +9,15 @@ using f7.Models;
 using f7.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
-namespace f7.Areas.Order.Controllers
+namespace f7.Models.Models.Areas.Order.Controllers
 {
     // [Authorize(Roles = RoleName.Administrator)]
     [Route("[controller]/[action]")]
     public class OrderController : Controller
     {
+        private const string CART_KEY = "f7Cart";
         private readonly f7DbContext _context;
         private UserManager<f7AppUser> _userManager;
         public OrderController(f7DbContext context, UserManager<f7AppUser> userManager)
@@ -30,31 +32,49 @@ namespace f7.Areas.Order.Controllers
         {
             const int PER_PAGE = 12;
 
-            var result = await pagingService.PagingHelper<OrderModels>(
-                page, PER_PAGE, "Order", this.Url, this.TempData);
-            TempData["PagingModel"] = result.Item2;
+            // var result = await pagingService.PagingHelper<OrderModels>(
+            //     page, PER_PAGE, "Order", this.Url, this.TempData);
+            // TempData["PagingModel"] = result.Item2;
 
-            var orderModels = result.Item1.OrderBy(od => od.CreatedDate);
+            var orders = _context.orders
+                .Include(o => o.Customer)
+                .Include(o => o.Staff)
+                .Where(o => true);
 
-            var customer = new List<CustomerModels>();
+            var totalOrders = orders.Count();
+            var totalPage = (int)Math.Ceiling((double)(totalOrders) / PER_PAGE);
+            if (page > totalPage)
+            {
+                page = page <= 1 ? 1 : totalPage;
+            }
+
+            orders = orders.Skip(PER_PAGE * (page - 1)).Take(PER_PAGE);
+
+            TempData["PagingModel"] = new PagingModel()
+            {
+                countpages = totalPage,
+                currentpage = page,
+                generateUrl = (p) => Url.Action("index", "order", new { page = p })
+
+            };
+            var orderModels = orders.OrderBy(od => od.CreatedDate);
+
+            // var customer = new List<CustomerModels>();
             List<OrderIndexViewModel> viewModel = new List<OrderIndexViewModel>();
 
             orderModels.ToList().ForEach(o =>
-            {
-                var userName = _context.Users.Where(u => u.Id == o.UserId)
-                                                .Select(u => u.UserName)
-                                                .FirstOrDefault();
-                viewModel.Add(new OrderIndexViewModel
                 {
-                    CreatedDate = o.CreatedDate.ToString(),
-                    CustomerName = userName,
-                    CustomerId = o.UserId,
-                    OrderId = o.OrderId,
-                    PaymentMethod = o.PaymentMethod,
-                    StaffId = o.StaffId,
-                    State = o.State
+                    viewModel.Add(new OrderIndexViewModel
+                    {
+                        CreatedDate = o.CreatedDate.ToString(),
+                        CustomerName = o.Customer.Name,
+                        CustomerId = o.CustomerId,
+                        OrderId = o.OrderId,
+                        PaymentMethod = o.PaymentMethod,
+                        StaffName = o.Staff.Name,
+                        State = o.State
+                    });
                 });
-            });
 
             return View(viewModel);
         }
@@ -89,19 +109,22 @@ namespace f7.Areas.Order.Controllers
         }
 
         // GET: Order/Create
-        [HttpGet]
-        public IActionResult Create()
-        {
-            ViewData["StaffId"] = new SelectList(_context.staffs, "StaffId", "StaffId");
-            return View();
-        }
+        // [HttpGet]
+        // public IActionResult Create()
+        // {
+        //     ViewData["StaffId"] = new SelectList(_context.staffs, "StaffId", "StaffId");
+        //     return View();
+        // }
 
         [HttpPost]
         // [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateList(int[] quantity, string[] itemid)
         {
+
+            var totalAmount = 0;
             var OrderId = Guid.NewGuid().ToString();
+            var items = _context.items.Select(i => new { i.ItemId, i.SellingPrice }).ToList();
             for (int i = 0; i < itemid.Length; i++)
             {
                 _context.orderDetail.Add(new OrderDetailModels
@@ -110,34 +133,40 @@ namespace f7.Areas.Order.Controllers
                     OrderId = OrderId,
                     Quantity = quantity[i]
                 });
+                totalAmount += quantity[i] * items.Where(it => it.ItemId == itemid[i])
+                    .FirstOrDefault().SellingPrice;
             }
             var order = new OrderModels
             {
                 OrderId = OrderId,
                 CreatedDate = DateTime.Now,
-                UserId = _userManager.GetUserId(this.User),
-                State = OrderState.Waiting
+                StaffId = _userManager.GetUserId(this.User),
+                State = OrderState.Waiting,
+                CustomerId = "1",
+                VAT = 10,
+                TotalAmount = totalAmount
             };
             _context.orders.Add(order);
             await _context.SaveChangesAsync();
+            HttpContext.Session.SetString(CART_KEY, "");
 
             return Redirect(Url.Action("index", "order"));
         }
 
-        // POST: Order/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,CreatedDate,CustomerId,PaymentMethod,VatPercent,StaffId")] OrderModels orderModels)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(orderModels);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["StaffId"] = new SelectList(_context.staffs, "StaffId", "StaffId", orderModels.StaffId);
-            return View(orderModels);
-        }
+        // // POST: Order/Create
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public async Task<IActionResult> Create([Bind("OrderId,CreatedDate,CustomerId,PaymentMethod,VatPercent,StaffId")] OrderModels orderModels)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         _context.Add(orderModels);
+        //         await _context.SaveChangesAsync();
+        //         return RedirectToAction(nameof(Index));
+        //     }
+        //     ViewData["StaffId"] = new SelectList(_context.staffs, "StaffId", "StaffId", orderModels.StaffId);
+        //     return View(orderModels);
+        // }
 
         // GET: Order/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -191,7 +220,7 @@ namespace f7.Areas.Order.Controllers
         }
 
         [HttpPost]
-        public IActionResult Accept(string id)
+        public IActionResult Pay(string id)
         {
             if (id == null)
             {
@@ -202,9 +231,10 @@ namespace f7.Areas.Order.Controllers
             {
                 return NotFound();
             }
-            order.State = OrderState.Accepted;
+            order.State = OrderState.Paid;
+            order.PaymentMethod = "Tiền mặt";
             _context.SaveChanges();
-            return Content(OrderState.Accepted);
+            return Content(OrderState.Paid);
         }
 
         [HttpPost]

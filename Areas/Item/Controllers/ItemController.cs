@@ -11,8 +11,9 @@ using f7.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using f7.Areas.Item;
 
-namespace f7.Areas.Product.Controllers
+namespace f7.Areas.Item
 {
     [Authorize("Admin role")]
     [Route("[controller]/[action]")]
@@ -29,29 +30,89 @@ namespace f7.Areas.Product.Controllers
 
         // GET: Item
         [HttpGet("{page:int?}")]
-        public async Task<IActionResult> Index([FromServices] PagingService pagingService, int page = 1)
+        public async Task<IActionResult> Index(string price, string name, string itemName, int page = 1)
         {
-            const int PER_PAGE = 20;
-
-            // if (page <= 1) page = 1;
-            // var totalPage = (double)(await _context.items.CountAsync()) / PER_PAGE;
-            // TempData["PagingModel"] = new PagingModel()
+            // var ItemsContext = _context.items as IQueryable<ItemModels>;
+            // ItemsContext = ItemsContext.Where(i => i.ItemName.Contains($"{itemName}"));
+            // ItemsContext = ItemsContext.OrderByDescending(i => i.SellingPrice);
+            // ItemsContext = ItemsContext.Skip(0).Take(10);
+            // var ItemsSelect = ItemsContext.Select(i => new
             // {
-            //     countpages = (int)Math.Ceiling(totalPage),
-            //     currentpage = page,
-            //     generateUrl = page =>
-            //         this.Url.Action("index", "item", new { page })
-            // };
-            // var items = await _context.items.Skip(PER_PAGE * (page - 1))
-            //                                 .Take(PER_PAGE)
-            //                                 .ToListAsync();
+            //     Item = new ItemModels { ItemName = i.ItemName, SellingPrice = i.SellingPrice },
+            //     Total = ItemsContext.Count()
+            // })
+            // .ToList();
 
-            var result = await pagingService.PagingHelper<ItemModels>(
-                page, PER_PAGE, "Item", this.Url, this.TempData);
-            TempData["PagingModel"] = result.Item2;
+            const int PER_PAGE = 10;
+            var itemIndexViewModel = new ItemIndexViewModel();
+            var items = _context.items as IQueryable<ItemModels>;
+            string queryString = "";
+            if (itemName != null)
+            {
+                items = items.Where(i => i.ItemName.Contains($"{itemName}"));
+                queryString = queryString + $"&itemName={itemName}";
+            }
+            if (name == "des")
+            {
+                items.OrderByDescending(i => i.ItemName);
+                queryString = queryString + $"&name={name}";
+            }
+            else if (name == "acs")
+            {
+                items.OrderBy(i => i.ItemName);
+                queryString = queryString + $"&name={name}";
+            }
+            switch (price)
+            {
+                // case "unit":
+                //     items = items.OrderBy(i => i.Unit).OrderBy(i => i.ItemName);
+                //     queryString.Concat($"&orderBy=unit");
+                //     break;
+                // case "unit_des":
+                //     items = items.OrderByDescending(i => i.Unit);
+                //     queryString.Concat($"&orderBy=unit_des");
+                //     break;
+                case "des":
+                    items = items.OrderByDescending(i => i.SellingPrice);
+                    queryString.Concat($"&price=des");
+                    break;
+                default:
+                    items = items.OrderBy(i => i.SellingPrice);
+                    break;
+                    // case "name_des":
+                    //     items = items.OrderByDescending(i => i.SellingPrice);
+                    //     queryString.Concat($"&orderBy=name_des");
+                    //     break;
+                    // default:
+                    //     items = items.OrderBy(i => i.ItemName)
+                    //                  .ThenByDescending(i => i.ItemName);
+                    //     break;
+            }
 
-            IEnumerable<ItemModels> items = result.Item1.OrderBy(i => i.ItemId);
-            return View(items);
+            var totalItems = items.Count();
+            var totalPage = (int)Math.Ceiling((double)(totalItems) / PER_PAGE);
+            if (page > totalPage)
+            {
+                page = page <= 1 ? 1 : totalPage;
+            }
+
+            items = items.Skip(PER_PAGE * (page - 1)).Take(PER_PAGE);
+            var itemsList = items.ToList();
+
+            itemIndexViewModel.itemModels = itemsList;
+
+            TempData["PagingModel"] = new PagingModel()
+            {
+                countpages = totalPage,
+                currentpage = page,
+
+                generateUrl = (p) =>
+                {
+                    return this.Url.Action("index", "item", new { page = p }) + "?" + queryString;
+                }
+            };
+
+            return View(itemIndexViewModel);
         }
 
         // GET: Item/Details/5
@@ -111,7 +172,7 @@ namespace f7.Areas.Product.Controllers
 
         // POST: Item/Edit/5
         [HttpPost("{id}")] //haizz, quên cái route value hoài
-        // [ValidateAntiForgeryToken]
+                           // [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> Edit(string id, [Bind("ItemId,ItemName,Description,Unit,SellingPrice")] ItemModels item)
         {

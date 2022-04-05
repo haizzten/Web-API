@@ -5,28 +5,42 @@
     ViewData["Title"] = "Home Page";
     var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
 }
-<div class="container" id="cart-index-container">
+<div class="row justify-content-center">
+
+
+    <form class="form d-flex align-items-center" asp-action="index" method="get" asp-controller="Home" id="search-form">
+        <div class="input-group input-group-lg mb-3 rounded">
+            <span class="input-group-text">Tìm theo</span>
+            <select class="form-select mw-200" name="searchBy">
+                <option value="itemName">Tên sản phẩm</option>
+                <option value="warehouseReceiptId">Mã sản phẩm</option>
+            </select>
+            <input type="text" class="form-control">
+            <button class="btn btn-success border-0 mw-150"><i class="fas fa-arrow-right"></i></i></button>
+        </div>
+    </form>
+    @* <div class="container" id="cart-index-container"> *@
     <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
         data-bs-target="#exampleModal">while u steel hear?</button>
     <div></div>
-    <a id="cart-icon" class="btn btn-primary m-2 p-3">
-        <i class="fas fa-shopping-cart"></i>Giỏ hàng
-        <span id="cart-badge" class="badge rounded-pill bg-info">0</span>
+    <a id="cart-icon" class="btn mw-200 btn-primary m-3 p-3 fs-4">Giỏ hàng
+        <span id="cart-badge" class="badge rounded-pill fs-6 bg-danger">0</span>
     </a>
+    @* </div> *@
 </div>
 
 <partial name="_StatusMessage" />
-<div class="container border border-2 rounded" id="main-container">
-    <div class="row justify-content-between">
+<div class="container border border-2 rounded">
+    <div class="row justify-content-around" id="home-item-row">
         @foreach (var item in Model)
         {
-            <div class="card border-info border border-2 my-2 item-card p-0">
+            <div class="card item-card p-0 mb-2 br-15 text-dark">
                 <div class="wrapper">
-                    <div class="wrapped-content">
-                        <img src="img/@item.Image" alt="item's image" class="w-100">
+                    <div class="wrapped-content br-15">
+                        <img src="/img/@item.Image" alt="item's image" class="w-100">
                     </div>
                     <div class="add-minus-item">
-                        <a class="add-item"><i class="fas fa-plus"></i></a>
+                        <a class="add-item"><i class="text-light fas fa-plus"></i></a>
                         <input type="hidden" value="@item.ItemId">
                     </div>
                 </div>
@@ -35,7 +49,9 @@
                         <h5>@item.ItemName</h5>
                     </div>
                     <div class="card-body no-wrap">@item.Description</div>
-                    <div class="card-footer">@item.SellingPrice Đ</div>
+                    <div class="card-footer text-center fs-4 text-danger fw-">
+                        <span class="">@item.SellingPrice Đ</span>
+                    </div>
                 </a>
             </div>
         }

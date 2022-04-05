@@ -1,5 +1,4 @@
-@model f7.Models.ItemModels
-
+@model f7.Models.ItemModels;
 @{
     ViewData["Title"] = "Delete";
     Layout = "_Layout";
@@ -41,6 +40,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="ItemId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="button-anchor" asp-action="Index">Về danh sách</a>
+        <a class="button-anchor" asp-action="Index"><i class="fas fa-arrow-left"></i>Về danh sách</a>
     </form>
 </div>

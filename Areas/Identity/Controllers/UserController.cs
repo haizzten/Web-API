@@ -6,10 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using f7.Areas.Identity.Models;
-using f7.Areas.Identity.Models.RoleViewModels;
-using f7.Areas.Identity.Models.UserViewModels;
-using f7.ExtendMethods;
+using f7.Models.Models.Areas.Identity.Models;
+using f7.Models.Models.Areas.Identity.Models.RoleViewModels;
+using f7.Models.Models.Areas.Identity.Models.UserViewModels;
+using f7.Models.Models.ExtendMethods;
 using f7.Models;
 using f7.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace f7.Areas.Identity.Controllers
+namespace f7.Models.Models.Areas.Identity.Controllers
 {
 
     [Authorize(Roles = RoleName.Administrator)]

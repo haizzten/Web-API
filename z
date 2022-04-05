@@ -1,0 +1,41 @@
+[33mcommit 4f292a8a8f525cd417c246667231805d0755a31b[m[33m ([m[1;36mHEAD -> [m[1;32madding_scss[m[33m, [m[1;32mCannot_sign_user_in[m[33m)[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Tue Jan 4 10:41:56 2022 +0700
+
+    commit b4 adding scss
+
+[33mcommit bd2f11664c8dbdb8637eab7049cf64bf6c368fc1[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Mon Dec 20 14:43:31 2021 +0700
+
+    Can't sign user in!'
+
+[33mcommit 8f7e54c30474a01e9b537a6de886bdb484992dda[m[33m ([m[1;31mremoteRepo/After_Done_JwtAuth_Remote[m[33m, [m[1;32malmost_complete_athentication[m[33m)[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Tue Dec 14 18:56:53 2021 +0700
+
+    add custom Jwt authentication and 'Amind rold' requirement
+
+[33mcommit d13911a813427beef1b1cb8307eeb8eac067c2da[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Mon Dec 6 12:45:52 2021 +0700
+
+    code keep running at old version
+
+[33mcommit c134719a694b7b77ad2a92690b1d433bb47fd283[m[33m ([m[1;31mremoteRepo/almost_complete_athentication[m[33m)[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Mon Nov 15 22:17:43 2021 +0700
+
+    almost complete athentication, left out authorization
+
+[33mcommit d3ae8ca4ab14cbb7d9cebbb679a8aa7183ca5053[m[33m ([m[1;31mremoteRepo/b1[m[33m, [m[1;32mb1[m[33m, [m[1;32mMaster[m[33m)[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Mon Nov 15 07:33:36 2021 +0700
+
+    First commit - Add login action
+
+[33mcommit acac5bc685dea9df6af19ef9d680c65bfac5ab65[m
+Author: Haizz <huy20022001@gmail.com>
+Date:   Fri Nov 12 08:51:58 2021 +0700
+
+    init commit

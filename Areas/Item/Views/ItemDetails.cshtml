@@ -30,13 +30,13 @@
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SellingPrice)
-            </dt>
-            <dd class="col-sm-10">
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SellingPrice)
-            </dd>
+        </dd>
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ItemId">Sửa</a> |
-    <a asp-action="Index" asp-controller="home">Về danh sách</a>
+    <a asp-action="Index" asp-controller="home"><i class="fas fa-arrow-left"></i>Về danh sách</a>
 </div>

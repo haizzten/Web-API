@@ -1,0 +1,143 @@
+@using System.Globalization
+@model IEnumerable<f7.Models.BatchModels>
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+    CultureInfo ci = CultureInfo.InvariantCulture;
+}
+@functions {
+    public static string formatDT(DateTime? dateTime)
+    {
+        if (null != dateTime)
+        {
+            return ((DateTime)dateTime).ToString("yyyy-MM-ddTHH:mm", CultureInfo.InvariantCulture);
+        }
+        return "";
+    }
+}
+
+<h1>Danh sách lô hàng</h1>
+
+<div class="input-group mb-3" style="box-shadow: 0px 2px 10px #989898;border-radius: 0.25rem">
+    <span class="input-group-text">Tìm theo</span>
+    <select class="form-select mw-200" name="searchBy">
+        <option value="itemName">Tên sản phẩm</option>
+        <option value="warehouseReceiptId">Mã phiếu nhập</option>
+        <option selected value="batchId">Mã lô hàng</option>
+    </select>
+    <input type="text" class="form-control">
+    <button class="btn btn-success border-0"><i class="fas fa-arrow-right"></i></i></button>
+</div>
+
+
+<div class="container" id="modal-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div>
+        @* Modal here ! *@
+    </div>
+</div>
+
+<table class="table table-striped" style="box-shadow: 0px 7px 20px 0px #a2a2a2;">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WarehouseReceiptId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Item.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ManufacturingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpireDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td><span>@i</span></td>
+                <td class="no-wrap mw-200">
+                    @Html.DisplayFor(modelItem => item.BatchId)
+                </td>
+                <td class="mw-150">
+                    @Html.DisplayFor(modelItem => item.WarehouseReceiptId)
+                </td>
+                <td class="mw-150">
+                    @Html.DisplayFor(modelItem => item.ItemId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.ItemName)
+                </td>
+                <td>
+                    <input disabled class="datetime-input mw-200" type="datetime-local" name="ManufacturingDate"
+                    value='@formatDT(item.ManufacturingDate)'>
+                </td>
+                <td>
+                    <input disabled class="datetime-input mw-200" type="datetime-local" name="ExpireDate"
+                    value="@formatDT(item.ExpireDate)">
+                </td>
+                <td>
+                    <form>
+                        <a class="btn btn-secondary update-btn"><i class="fas fa-pen"></i></a>
+                        <a style="display:none" class="btn btn-success save-btn"><i class="fas fa-check"></i></a>
+                        <input hidden name="BatchId" value="@item.BatchId">
+                        <input hidden name="WarehouseReceiptId" value="@item.WarehouseReceiptId">
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts {
+<script>
+    var updateBtn = $(".update-btn");
+    var saveBtn = $(".save-btn");
+
+    $(".save-btn").click(function () {
+        var tr = $(this).closest("tr");
+        var first = tr.find(".datetime-input").first().serialize();
+        var last = tr.find(".datetime-input").last().serialize();
+        var form = tr.find("form").serialize();
+        $.ajax({
+            url: '@Url.Action("PostEditExpiration", "batch")',
+            data: first + "&" + last + "&" + form,
+            type: "post",
+            success: (d) => {
+                alert("Update succeed");
+            }
+        });
+    });
+
+    updateBtn.click(function () {
+        $(this).hide();
+        $(this).next().show();
+        var tr = $(this).closest("tr");
+        var datetimeInput = tr.find('.datetime-input');
+        datetimeInput.prop('disabled', (i, v) => !v);
+    });
+    saveBtn.click(function () {
+        $(this).hide();
+        $(this).prev().show();
+        var tr = $(this).closest("tr");
+        var datetimeInput = tr.find('.datetime-input');
+        datetimeInput.prop('disabled', (i, v) => !v);
+    })
+
+</script>
+}

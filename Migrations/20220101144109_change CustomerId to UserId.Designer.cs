@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using f7.Models;
 
-namespace f7.Migrations
+namespace f7.Models.Models.Migrations
 {
     [DbContext(typeof(f7DbContext))]
     [Migration("20220101144109_change CustomerId to UserId")]

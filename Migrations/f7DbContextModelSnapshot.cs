@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using f7.Models;
 
-namespace f7.Migrations
+namespace f7.Models.Models.Migrations
 {
     [DbContext(typeof(f7DbContext))]
     partial class f7DbContextModelSnapshot : ModelSnapshot
@@ -154,6 +154,72 @@ namespace f7.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("f7.Models.BatchModels", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BatchId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GoodIssueId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GoodIssueNoteId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ItemId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ManufacturingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProviderId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ReceivingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Remain")
+                        .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseReceiptId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GoodIssueId");
+
+                    b.HasIndex("GoodIssueNoteId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("WarehouseReceiptId");
+
+                    b.HasIndex("BatchId", "WarehouseReceiptId")
+                        .IsUnique()
+                        .HasFilter("[WarehouseReceiptId] IS NOT NULL");
+
+                    b.ToTable("batches");
+                });
+
             modelBuilder.Entity("f7.Models.CustomerModels", b =>
                 {
                     b.Property<string>("CustomerId")
@@ -163,10 +229,7 @@ namespace f7.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fax")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -177,31 +240,25 @@ namespace f7.Migrations
                     b.ToTable("customers");
                 });
 
-            modelBuilder.Entity("f7.Models.ItemDetailModels", b =>
+            modelBuilder.Entity("f7.Models.GoodIssueNoteModels", b =>
                 {
-                    b.Property<string>("ConsignmentId")
+                    b.Property<string>("GoodIssueNoteId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ItemId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CostPrice")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ExpiresDate")
+                    b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Manufacturer")
+                    b.Property<string>("StaffId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ManufacturingDate")
-                        .HasColumnType("datetime2");
+                    b.HasKey("GoodIssueNoteId");
 
-                    b.HasKey("ConsignmentId", "ItemId");
+                    b.HasIndex("StaffId");
 
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("ItemDetail");
+                    b.ToTable("goodIssueNotes");
                 });
 
             modelBuilder.Entity("f7.Models.ItemModels", b =>
@@ -215,11 +272,23 @@ namespace f7.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("InSelling")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InStock")
+                        .HasColumnType("int");
+
                     b.Property<string>("ItemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NotifyBeforeDays")
+                        .HasColumnType("int");
+
                     b.Property<int>("SellingPrice")
                         .HasColumnType("int");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
@@ -256,6 +325,9 @@ namespace f7.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("PaymentMethod")
                         .HasColumnType("nvarchar(max)");
 
@@ -265,14 +337,95 @@ namespace f7.Migrations
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VAT")
+                        .HasColumnType("int");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex(new[] { "StaffId" }, "IX_orders_StaffId");
 
                     b.ToTable("orders");
+                });
+
+            modelBuilder.Entity("f7.Models.ProviderModels", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("providers");
+                });
+
+            modelBuilder.Entity("f7.Models.PurchaseOrderDetailModels", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ItemId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurchaseOrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("PurchaseOrderId");
+
+                    b.ToTable("purchaseOrdersDetail");
+                });
+
+            modelBuilder.Entity("f7.Models.PurchaseOrderModels", b =>
+                {
+                    b.Property<string>("PurchaseOrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProviderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StaffId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PurchaseOrderId");
+
+                    b.HasIndex("ProviderId");
+
+                    b.HasIndex("StaffId")
+                        .IsUnique()
+                        .HasFilter("[StaffId] IS NOT NULL");
+
+                    b.ToTable("purchaseOrders");
                 });
 
             modelBuilder.Entity("f7.Models.StaffModels", b =>
@@ -280,15 +433,23 @@ namespace f7.Migrations
                     b.Property<string>("StaffId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Address")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                    b.Property<string>("CIC")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("bit");
+
+                    b.Property<string>("HomeAddress")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -298,14 +459,43 @@ namespace f7.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StaffName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.HasKey("StaffId");
 
                     b.ToTable("staffs");
+                });
+
+            modelBuilder.Entity("f7.Models.StockCardModels", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("Balance")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BatchId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("In")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ItemId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("Out")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BatchId");
+
+                    b.HasIndex("ItemId", "DateTime")
+                        .IsUnique()
+                        .HasFilter("[ItemId] IS NOT NULL");
+
+                    b.ToTable("stockCards");
                 });
 
             modelBuilder.Entity("f7.Models.WarehouseModels", b =>
@@ -327,6 +517,38 @@ namespace f7.Migrations
                     b.HasKey("WarehouseId");
 
                     b.ToTable("warehouse");
+                });
+
+            modelBuilder.Entity("f7.Models.WarehouseReceiptModels", b =>
+                {
+                    b.Property<string>("WarehouseReceiptId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DelivererName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurchaseOrderId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WarehouseId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WarehouseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WarehouseReceiptId");
+
+                    b.HasIndex("PurchaseOrderId")
+                        .IsUnique()
+                        .HasFilter("[PurchaseOrderId] IS NOT NULL");
+
+                    b.ToTable("warehouseReceipts");
                 });
 
             modelBuilder.Entity("f7.Models.f7AppUser", b =>
@@ -459,15 +681,43 @@ namespace f7.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("f7.Models.ItemDetailModels", b =>
+            modelBuilder.Entity("f7.Models.BatchModels", b =>
                 {
-                    b.HasOne("f7.Models.ItemModels", "ItemModels")
+                    b.HasOne("f7.Models.ProviderModels", "Provider")
                         .WithMany()
+                        .HasForeignKey("GoodIssueId");
+
+                    b.HasOne("f7.Models.GoodIssueNoteModels", "GoodIssueNote")
+                        .WithMany()
+                        .HasForeignKey("GoodIssueNoteId");
+
+                    b.HasOne("f7.Models.ItemModels", "Item")
+                        .WithMany("Batches")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ItemModels");
+                    b.HasOne("f7.Models.WarehouseReceiptModels", "WarehouseReceipt")
+                        .WithMany()
+                        .HasForeignKey("WarehouseReceiptId");
+
+                    b.Navigation("GoodIssueNote");
+
+                    b.Navigation("Item");
+
+                    b.Navigation("Provider");
+
+                    b.Navigation("WarehouseReceipt");
+                });
+
+            modelBuilder.Entity("f7.Models.GoodIssueNoteModels", b =>
+                {
+                    b.HasOne("f7.Models.StaffModels", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("f7.Models.OrderDetailModels", b =>
@@ -491,15 +741,80 @@ namespace f7.Migrations
 
             modelBuilder.Entity("f7.Models.OrderModels", b =>
                 {
+                    b.HasOne("f7.Models.CustomerModels", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("f7.Models.StaffModels", "Staff")
                         .WithMany("Orders")
                         .HasForeignKey("StaffId");
 
+                    b.Navigation("Customer");
+
                     b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("f7.Models.PurchaseOrderDetailModels", b =>
+                {
+                    b.HasOne("f7.Models.ItemModels", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
+
+                    b.HasOne("f7.Models.PurchaseOrderModels", "PurchaseOrder")
+                        .WithMany()
+                        .HasForeignKey("PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Item");
+
+                    b.Navigation("PurchaseOrder");
+                });
+
+            modelBuilder.Entity("f7.Models.PurchaseOrderModels", b =>
+                {
+                    b.HasOne("f7.Models.ProviderModels", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId");
+
+                    b.HasOne("f7.Models.StaffModels", "Staff")
+                        .WithOne()
+                        .HasForeignKey("f7.Models.PurchaseOrderModels", "StaffId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Provider");
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("f7.Models.StockCardModels", b =>
+                {
+                    b.HasOne("f7.Models.BatchModels", "Batch")
+                        .WithMany()
+                        .HasForeignKey("BatchId");
+
+                    b.HasOne("f7.Models.ItemModels", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId");
+
+                    b.Navigation("Batch");
+
+                    b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("f7.Models.WarehouseReceiptModels", b =>
+                {
+                    b.HasOne("f7.Models.PurchaseOrderModels", "PurchaseOrder")
+                        .WithOne()
+                        .HasForeignKey("f7.Models.WarehouseReceiptModels", "PurchaseOrderId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("PurchaseOrder");
                 });
 
             modelBuilder.Entity("f7.Models.ItemModels", b =>
                 {
+                    b.Navigation("Batches");
+
                     b.Navigation("OrderDetails");
                 });
 

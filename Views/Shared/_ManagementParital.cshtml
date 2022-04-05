@@ -4,19 +4,17 @@
             data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-tasks"></i>
         </a>
-        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" asp-action="index" asp-controller="Customer">Khách hàng</a>
-            </li>
+        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink" id="manage-dropdown"
+            style="box-shadow: 1px 5px 10px 0px #a2a2a2;">
+            <li><a class="dropdown-item" href="/ManageUser/index">Tài khoản</a></li>
+            <li><a class="dropdown-item" asp-action="index" asp-controller="Role">Vai trò</a></li>
+            <li><a class="dropdown-item" asp-action="index" asp-controller="Customer">Khách hàng</a></li>
             <li><a class="dropdown-item" asp-action="index" asp-controller="Item">Sản phẩm</a></li>
             <li><a class="dropdown-item" asp-action="index" asp-controller="Order">Đơn hàng</a></li>
-            <li><a class="dropdown-item" asp-action="index" asp-controller="OrderDetails">Chi tiết
-                    đơn hàng</a></li>
-            <li><a class="dropdown-item" asp-action="index" asp-controller="Staff">Nhân viên</a>
-            </li>
-            <li><a class="dropdown-item" href="/ManageUser/index">Tài khoản</a>
-            </li>
-            <li><a class="dropdown-item" asp-action="index" asp-controller="Role">Vai trò</a>
-            </li>
+            <li><a class="dropdown-item" asp-action="index" asp-controller="Staff">Nhân viên</a></li>
+            <li><a class="dropdown-item" asp-action="index" asp-controller="WarehouseReceipt">Phiếu nhập</a></li>
+            <li><a class="dropdown-item" asp-action="index" asp-controller="Batch">Lô hàng</a></li>
+            <li><a class="dropdown-item" asp-action="geteditexpiration" asp-controller="Batch">Cập nhật HSD</a></li>
         </ul>
     </li>
 </ul>

@@ -1,0 +1,13 @@
+**Hướng dẫn chạy ứng dụng**
+
+Yêu cầu: phiền bản .NET 5.0
+Mở CLI tại thư mục root và nhập lệnh:
+	
+dotnet tool install --global dotnet-ef
+
+Lệnh trên dùng để cài công cụ migrate database. Sau đó nhập lệnh:
+
+dotnet ef database update
+
+Để migrate database vào sql server. 
+

@@ -13,9 +13,8 @@ namespace f7.Models
     {
         [Key]
         public string CustomerId { get; set; }
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
         public string Phone { get; set; }
-        public string Fax { get; set; }
         [StringLength(200)]
         public string Address { get; set; }
     }

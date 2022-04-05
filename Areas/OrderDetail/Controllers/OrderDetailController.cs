@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using f7.Models;
 
-namespace f7.Areas.OrderDetail.Controllers
+namespace f7.Models.Models.Areas.OrderDetail.Controllers
 {
     public class OrderDetailController : Controller
     {

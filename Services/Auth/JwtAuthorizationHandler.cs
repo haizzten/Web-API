@@ -3,7 +3,7 @@ using System.Security.Claims;
 // using System.IdentityModel.Tokens.Jwt; ???:Đ???
 using Microsoft.AspNetCore.Authorization;
 
-namespace f7.Authorization
+namespace f7.Models.Models.Authorization
 {
     public class IsRoleRequirement : IAuthorizationRequirement
     {

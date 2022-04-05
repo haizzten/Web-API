@@ -8,7 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-using f7;
+using f7.Models.Models;
 using f7.Services;
 using f7.Models;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +19,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 
-namespace f7.Controllers
+namespace f7.Models.Models.Controllers
 {
     [Authorize]
     [Route("api/[action]")]

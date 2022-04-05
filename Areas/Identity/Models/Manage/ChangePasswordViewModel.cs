@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace f7.Areas.Identity.Models.ManageViewModels
+namespace f7.Models.Models.Areas.Identity.Models.ManageViewModels
 {
     public class ChangePasswordViewModel
     {

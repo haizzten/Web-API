@@ -1,0 +1,122 @@
+@model IEnumerable<f7.Models.WarehouseReceiptModels>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Danh sách phiếu nhập</title>
+</head>
+
+<div class="container" id="modal-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div>
+        @* Modal here ! *@
+    </div>
+</div>
+
+<body>
+    <p>
+        <a asp-action="Create" class="btn btn-success"><i class="text-light fas fa-plus"></i></a>
+    </p>
+    <table class="table haizz-box-shadow">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DelivererName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseOrderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WarehouseName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DelivererName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseOrderId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WarehouseName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary update-btn"><i class="fas fa-pen"></i></a>
+                        <a class="btn btn-info detail-btn"><i class="fs-5 text-light fas fa-info"></i></a>
+                        <a class="btn btn-danger delete-btn"><i class="fas fa-trash"></i></a>
+                        <input type="hidden" name="WarehouseReceiptId" value="@item.WarehouseReceiptId">
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+
+@section Scripts{
+<script>
+
+    $(".update-btn").on('click', function () {
+        var text = $(this).nextAll("input").first().serialize();
+        $.ajax({
+            url: '@Url.Action("GetEdit", "warehouseReceipt")',
+            type: "GET",
+            data: text,
+            success: function (d, s, x) {
+                $("#launch-btn + div").html(d);
+                $("#launch-btn").click();
+            },
+            error: function (d, s, x) {
+                alert(x.responseText);
+            }
+        });
+    });
+    $(".detail-btn").click(function () {
+        var text = $(this).nextAll("input").first().serialize();
+        $.ajax({
+            url: '@Url.Action("batchindex", "warehouseReceipt")',
+            data: text,
+            type: "get",
+            success: function (d, s, x) {
+                $("#launch-btn + div").html(d);
+                $("#launch-btn").click();
+            }
+        })
+    });
+    $("#modal-container").on('click', "#update-btn", function () {
+        var form = $("form[name=update-warehouse-receipt]");
+        $.ajax({
+            url: '@Url.Action("PostEdit", "warehouseReceipt")',
+            type: "POST",
+            data: form.serialize(),
+            success: function (data) {
+                alert("Đã lưu");
+                $("#modal-container").focusout();
+            }
+        });
+    });
+
+</script>
+}
+
+
+</html>

@@ -1,0 +1,34 @@
+@model f7.Areas.WarehouseReceipt.WRDetailViewModel;
+@{
+    var index = Model.index;
+}
+<tr>
+    <td>
+        <span>@index</span>
+    </td>
+    <td>
+        <input style="width: 100px" readonly value="" name="itemid[@index]" class="item-id">
+    </td>
+    <td>
+        <input type="text" name="batchid[@index]">
+    </td>
+    <td>
+        <input type="text" name="providerid[@index]">
+    </td>
+    <td>
+        <select class="js-example-basic-single item-id-select" style="width: 250px">
+        </select>
+    </td>
+    <td>
+        <input style="width: 80px" readonly value="" name="" class="item-unit">
+    </td>
+    <td>
+        <input style="width: 100px" type="number" value="" name="price[@index]" class="item-price">
+    </td>
+    <td>
+        <input type="number" value="" name="quantity[@index]" class="item-quantity w-100">
+    </td>
+    <td>
+        <span class="item-amount"></span>
+    </td>
+</tr>

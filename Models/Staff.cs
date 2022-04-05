@@ -21,22 +21,25 @@ namespace f7.Models
         [StringLength(50, ErrorMessage = "Tên tối đa 50 ký tự")]
         [Required]
         [Display(Name = "Tên nhân viên")]
-        public string StaffName { get; set; }
+        public string Name { get; set; }
         [Display(Name = "Giới tính")]
         public bool Gender { get; set; }
         [Display(Name = "Ngày sinh")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+        [Display(Name = "Số căn cước")]
+        public string CIC { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
-        [Display(Name = "Địa chỉ")]
-        [StringLength(200, ErrorMessage = "Địa chỉ tối đa 200 ký tự")]
-        public string Address { get; set; }
         [Required]
         [Display(Name = "Chức vụ")]
         public string Position { get; set; }
+
+        [Display(Name = "Địa chỉ")]
+        [StringLength(200, ErrorMessage = "Địa chỉ tối đa 200 ký tự")]
+        public string HomeAddress { get; set; }
 
         [InverseProperty(nameof(OrderModels.Staff))]
         public virtual ICollection<OrderModels> Orders { get; set; }

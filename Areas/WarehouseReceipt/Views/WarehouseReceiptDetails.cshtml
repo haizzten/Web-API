@@ -1,0 +1,61 @@
+@model f7.Models.WarehouseReceiptModels
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+
+<body>
+
+    <div>
+        <h4>WarehouseReceiptModels</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DelivererName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DelivererName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PurchaseOrderId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PurchaseOrderId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WarehouseName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WarehouseName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TotalAmount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.WarehouseId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.WarehouseId)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.WarehouseReceiptId">Edit</a> |
+        <a asp-action="Index"><i class="fas fa-arrow-left"></i>Về danh sách</a>
+    </div>
+</body>
+
+</html>

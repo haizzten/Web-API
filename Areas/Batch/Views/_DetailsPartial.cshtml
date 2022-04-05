@@ -1,0 +1,70 @@
+@model f7.Models.BatchModels
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chi tiết lô hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="detail-modal">
+                <div class="table-responsive-md">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Price)</td>
+                        <td>@Html.DisplayFor(model => model.Price)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Quantity)</td>
+                        <td>@Html.DisplayFor(model => model.Quantity)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Amount)</td>
+                        <td>@Html.DisplayFor(model => model.Amount)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Remain)</td>
+                        <td>@Html.DisplayFor(model => model.Remain)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.State)</td>
+                        <td>@Html.DisplayFor(model => model.State)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.ReceivingDate)</td>
+                        <td>@Html.DisplayFor(model => model.ReceivingDate)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.ManufacturingDate)</td>
+                        <td>@Html.DisplayFor(model => model.ManufacturingDate)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.ExpireDate)</td>
+                        <td>@Html.DisplayFor(model => model.ExpireDate)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Provider)</td>
+                        <td>@Html.DisplayFor(model => model.Provider.Id)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.Item)</td>
+                        <td>@Html.DisplayFor(model => model.Item.ItemId)</td>
+                        </tr>
+                        <tr>
+                        <td>@Html.DisplayNameFor(model => model.WarehouseReceipt)</td>
+                        <td>@Html.DisplayFor(model => model.WarehouseReceipt.WarehouseReceiptId)</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+@model f7.Areas.WarehouseReceipt.WRIndexViewModel
+@using System;
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-lg-4 col-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="WarRec.WarehouseReceiptId" class="control-label fs-5"></label>
+                <input asp-for="WarRec.WarehouseReceiptId" name="WarehouseReceiptId" class="form-control" />
+                <span asp-validation-for="WarRec.WarehouseReceiptId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="WarRec.DateTime" class="control-label fs-5"></label>
+                <input asp-for="WarRec.DateTime" name="datetime" class="form-control" />
+                <span asp-validation-for="WarRec.DateTime" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-4 col-6">
+            <div class="form-group mb-3">
+                <label asp-for="WarRec.DelivererName" class="control-label fs-5"></label>
+                <input asp-for="WarRec.DelivererName" name="deliverername" class="form-control" />
+                <span asp-validation-for="WarRec.DelivererName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="WarRec.PurchaseOrderId" class="control-label fs-5"></label>
+                <input asp-for="WarRec.PurchaseOrderId" name="AttachedOriginalDocumentId" class="form-control" />
+                <span asp-validation-for="WarRec.PurchaseOrderId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group mb-3 col-lg-4 col-6">
+            <label asp-for="WarRec.WarehouseName" class="control-label fs-5"></label>
+            <input asp-for="WarRec.WarehouseName" name="WarehouseName" class="form-control" value="Kho cửa hàng" />
+            <span asp-validation-for="WarRec.WarehouseName" class="text-danger"></span>
+        </div>
+        <div class="con-md-12" style="overflow-x:scroll;">
+            <div class="responsiveTable">
+                <table class="table table-striped table-light" id="wrd-table">
+                    <thead>
+                        <tr>
+                            <th><label>STT</label></th>
+                            <th><label>Mã sản phẩm</label></th>
+                            <th><label>Mã lô hàng</label></th>
+                            <th><label>Mã NCC</label></th>
+                            <th><label>Tên sản phẩm</label></th>
+                            <th><label>Đơn vị</label></th>
+                            <th><label>Đơn giá nhập</label></th>
+                            <th class="mw-100"><label>Số lượng</label></th>
+                            <th><label>Thành tiền</label></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @* Here is to be inserted *@
+                    </tbody>
+                </table>
+                <button type="button" id="add-row-btn" class="btn btn-success my-3">Thêm dòng</button>
+            </div>
+        </div>
+
+        <div class="d-flex" style="justify-content: space-between;">
+            <div class="form-group">
+                <input type="submit" value="Tạo" class="btn btn-primary" />
+            </div>
+            <div class="form-group col-md-4 col-6 fs-4 fw-bold">
+                Tổng cộng:&nbsp;<span id="total-amount">0</span>&nbsp;Đ
+            </div>
+        </div>
+    </div>
+</form>
+<div class="my-3">
+    <a asp-action="Index" class="btn btn-primary "><i class="fas fa-arrow-left fs-4"></i></a>
+</div>
+@section Scripts {
+
+<script>
+    $(document).ready(function () {
+        var rowIndex = 0;
+        $("#add-row-btn").click(function () {
+            $.ajax({
+                url: `/WarehouseReceipt/GetAddBatch/${rowIndex}`,
+                type: "get",
+                success: function (data, status, xhr) {
+                    $("#wrd-table").find('tbody').append(data);
+                    rowIndex++;
+                    var selectEles = $(".item-id-select");
+                    selectEles.select2({
+                        ajax: {
+                            url: '/itemsearch',
+                            dataType: 'json',
+                            processResults: function (d, s, x) {
+                                return { results: d };
+                            }
+                        }
+                    });
+
+                }
+            });
+        });
+
+        // Cả hai cách sau đều retreive được 'data':
+
+        // Cách 1: lấy từ 'select2("data")'
+        //        $("#show-selected-option-data-btn").click(() => {
+        //            var data = selectEle.select2('data');
+        //        });
+
+        // Cách 2: lấy từ 'e'
+
+
+        $(document).on('select2:select', ".item-id-select", function (e) {
+            var data = e.params.data;
+            var tr = $(this).closest('tr');
+            var unit = tr.find(".item-unit");
+            $(unit).attr('value', data.itemUnit);
+            var id = tr.find(".item-id");
+            $(id).val(data.id);
+        });
+
+        // Cập nhật cột "thành tiền"
+        $(document).on("change", ".item-quantity", function () {
+            var tr = $(this).closest('tr');
+
+            var sibling = tr.find(".item-price");
+            var price = parseInt(sibling.val());
+            if ($.isNumeric(price)) {
+                var amount = price * $(this).val();
+                tr.find(".item-amount").text(amount + " Đ");
+                tr.find(".item-amount").trigger("change", amount);
+            }
+        });
+        $(document).on("change", ".item-price", function () {
+            var tr = $(this).closest('tr');
+
+            var sibling = tr.find(".item-quantity");
+            var quantity = parseInt(sibling.val());
+            if ($.isNumeric(quantity)) {
+                var amount = quantity * $(this).val();
+                tr.find(".item-amount").text(amount + " Đ");
+                tr.find(".item-amount").trigger("change", amount);
+            }
+        });
+        $(document).on("change", ".item-amount", function (event, param) {
+            var text = $("#total-amount").text();
+            var totalAmount = parseInt(text);
+            if ($.isNumeric(totalAmount)) {
+                totalAmount += param;
+                $("#total-amount").text(totalAmount);
+            } else {
+                $("#total-amount").text(param);
+            }
+        });
+    });
+</script>
+}

@@ -1,0 +1,177 @@
+@model IEnumerable<f7.Models.BatchModels>
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+    var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel;
+}
+
+<h1>Danh sách lô hàng</h1>
+
+<div class="container" id="modal-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div>
+        @* Modal here ! *@
+    </div>
+</div>
+
+<form class="form d-flex align-items-center my-3" asp-action="index" method="get" asp-controller="batch">
+    <div class="flex-nowrap input-group mx-2 haizz-box-shadow" style="max-width: 300px">
+        <span class="input-group-text" id="addon-wrapping">Tên</span>
+        <input type="text" class="form-control" name="keyWord" placeholder="Nhập mã lô hàng..." aria-label="Username"
+            aria-describedby="addon-wrapping">
+    </div>
+    <div class="input-group mx-2 haizz-box-shadow" style="max-width: 300px">
+        <label class="input-group-text" for="inputGroupSelect01">Xếp theo</label>
+        <select class="form-select" name="orderBy">
+            <option value="amount">Giá tăng</option>
+            <option value="amount_des">Giá giảm</option>
+            <option value="quantity">Nhập tăng</option>
+            <option value="quantity_des">Nhập giảm</option>
+            <option value="remain">Tồn tăng</option>
+            <option value="remain_des">Tồn giảm</option>
+            <option value="expiredate">Đến hạn tăng</option>
+            <option value="expiredate_des">Đến hạn giảm</option>
+        </select>
+    </div>
+    <button class="btn btn-success border-0 haizz-box-shadow"><i class="fas fa-arrow-right"></i></i></button>
+</form>
+
+<table class="table table-striped over-scroll haizz-box-shadow">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReceivingDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+
+                <td><span>@i</span></td>
+                <td style="width: 200px" class="no-wrap">
+                    @Html.DisplayFor(modelItem => item.BatchId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceivingDate)
+                </td>
+
+                <td>
+                    <a class="btn btn-secondary update-btn"><i class="fas fa-pen"></i></a>
+                    <a class="btn btn-info detail-btn"><i class="fs-5 text-light fas fa-info"></i></a>
+                    @* <a class="btn btn-danger delete-btn"><i class="fas fa-trash"></i></a> *@
+                    <input hidden type="hidden" name="WarehouseReceiptId" value="@item.WarehouseReceiptId">
+                    <input hidden type="hidden" name="BatchId" value="@item.BatchId">
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center mt-5" id="cart-icon-wrapper">
+    <partial name="_PagingPartial" model="@pagingModel" />
+</div>
+
+
+@section Scripts {
+<script>
+
+    const successFunc = function (d, s, x) {
+        $("#launch-btn + div").html(d);
+        $("#launch-btn").click();
+    }
+
+    $(".update-btn").click(function () {
+        var first = $(this).nextAll("input").first().serialize();
+        var last = $(this).nextAll("input").eq(-1).serialize();
+        var text = (first + "&" + last);
+        $.ajax({
+            url: '@Url.Action("getedit", "batch")',
+            data: text,
+            type: "get",
+            success: (d) => {
+                successFunc(d);
+                $("#exampleModal").find(".select2").select2({
+                    dropdownParent: $("#exampleModal")
+                });
+            }
+        });
+    });
+
+    $(".detail-btn").click(function () {
+        var first = $(this).nextAll("input").first().serialize();
+        var last = $(this).nextAll("input").eq(-1).serialize();
+        var text = (first + "&" + last);
+        $.ajax({
+            url: '@Url.Action("detail", "batch")',
+            data: text,
+            type: "get",
+            success: successFunc
+        });
+    });
+
+
+    $("#modal-container").on('click', "#update-btn", function () {
+        var form = $("form[name=update-batch]");
+        $.ajax({
+            url: '@Url.Action("PostEdit", "batch")',
+            type: "POST",
+            data: form.serialize(),
+            success: function (data) {
+                alert("Đã lưu");
+                $("#modal-container").focusout();
+            }
+        });
+    });
+
+    $("#modal-container").on('click', "#delete-btn", function () {
+        var form = $("form[name=update-batch]");
+        var batchId = form.children().eq(0).serialize();
+        var WRId = form.children().eq(1).serialize();
+        $.ajax({
+            url: '@Url.Action("PostDelete", "batch")',
+            type: "POST",
+            data: batchId + "&" + WRId,
+            success: function (data) {
+                alert("Đã lưu");
+                $("#modal-container").focusout();
+            }
+        });
+    });
+
+
+</script>
+}

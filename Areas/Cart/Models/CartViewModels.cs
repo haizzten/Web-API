@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace f7.Areas.Cart.Models
+namespace f7.Models.Models.Areas.Cart.Models
 {
     public class CartViewModel
     {

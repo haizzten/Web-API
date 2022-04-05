@@ -1,0 +1,101 @@
+@model IEnumerable<f7.Models.PurchaseOrderModels>
+
+@{
+    ViewData["Title"] = "Index";
+    @* var pagingModel = TempData["PagingModel"] as f7.Models.PagingModel; *@
+}
+<div class="container" id="modal-container">
+    <button id="launch-btn" type="button" class="btn btn-primary" style="display: none" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">while u steel hear?</button>
+    <div></div>
+</div>
+
+<div class="container">
+    <div class="table-responsive-lg">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-success add-item-btn mb-3"><i class="fas fa-plus"></i></a>
+        </div>
+
+        <table class="table table-striped over-scroll haizz-box-shadow">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CompanyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.State)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Staff)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Provider)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CompanyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Staff.StaffId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Provider.Id)
+                        </td>
+                        <td>
+                            <a class="update-btn btn btn-secondary"><i class="fa fa-pen"></i></a>
+                            <a class="delete-btn btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <input type="hidden" name="id" value="@item.PurchaseOrderId">
+
+                            @* <a asp-action="Edit" asp-route-id="@item.PurchaseOrderId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.PurchaseOrderId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.PurchaseOrderId">Delete</a> *@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="d-flex justify-content-center mt-5" id="cart-icon-wrapper">
+        @* <partial name="_PagingPartial" model="@pagingModel" /> *@
+    </div>
+</div>
+
+@section Scripts {
+<script>
+
+    $(".add-item-btn").click(function () {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetCreate", "PurchaseOrder")',
+            success: function (d, s, x) {
+                var modalWrapper = $("#launch-btn + div");
+                modalWrapper.html(d);
+                $("#launch-btn").click();
+
+            }
+        });
+    });
+</script>
+}

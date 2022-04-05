@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace f7.Migrations
+namespace f7.Models.Models.Migrations
 {
     public partial class removeVATprop : Migration
     {

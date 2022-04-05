@@ -9,7 +9,7 @@ using f7.Models;
 using f7.Services;
 using Microsoft.AspNetCore.Authorization;
 
-namespace f7.Areas.Staff.Controllers
+namespace f7.Models.Models.Areas.Staff.Controllers
 {
     [Authorize("Admin role")]
     [Route("[controller]/[action]")]
