@@ -25,7 +25,7 @@ namespace f7.Models.Models.Controllers
             _context = dbContext;
         }
         [Route("/")]
-        public async Task<IActionResult> MainPage()
+        public IActionResult MainPage()
         {
             return View();
         }
