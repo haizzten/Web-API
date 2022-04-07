@@ -67,7 +67,8 @@ namespace f7.Models.Models
                     opt.UseSqlServer(connection, builder =>
                     {
                         builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-                    });//For 'An exception has been raised that is likely due to a transient failure.
+                    });
+                    //For 'An exception has been raised that is likely due to a transient failure.
                     //If you are connecting to a SQL Azure database consider using SqlAzureExecutionStrategy.'
                 });
 
